@@ -1,5 +1,0 @@
-<odoo>
-	<data>
-		<menuitem name="Rapports_paie" id="menu_rap" parent="om_hr_payroll.menu_hr_payroll_root" groups="hr.group_hr_user"/>
-	</data>
-</odoo>

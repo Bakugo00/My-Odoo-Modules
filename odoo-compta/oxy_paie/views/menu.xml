@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-	<menuitem name="Rapports" id="menu_reports" parent="om_hr_payroll.menu_hr_payroll_root" groups="hr.group_hr_user"/>
-</odoo>

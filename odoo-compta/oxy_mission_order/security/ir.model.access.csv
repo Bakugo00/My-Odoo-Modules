@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-Hr_mission_object,hr.mission.object.id,model_hr_mission_object,hr.group_hr_user,1,1,1,1
-Hr_mission_order,hr.mission.order.id,model_hr_mission_order,hr.group_hr_user,1,1,1,1
-Hr_mission_order_lot,hr.mission.order.lot.id,model_hr_mission_order_lot,hr.group_hr_user,1,1,1,1
-ordre_mission_employees,ordre.mission.employees.id,model_ordre_mission_employees,hr.group_hr_user,1,1,1,1
-Hr_mission_object_manager_n,hr.mission.object.manager.n.id,model_hr_mission_object,ep_rh.group_employee_manager_n,1,0,0,0
-Hr_mission_order_manager_n,hr.mission.order.manager.n.id,model_hr_mission_order,ep_rh.group_employee_manager_n,1,0,0,0
-Hr_mission_order_lot_manager_n,hr.mission.order.lot.manager.n.id,model_hr_mission_order_lot,ep_rh.group_employee_manager_n,1,0,0,0
-ordre_mission_employees_manager_n,ordre.mission.employees.manager.n.id,model_ordre_mission_employees,ep_rh.group_employee_manager_n,1,0,0,0
