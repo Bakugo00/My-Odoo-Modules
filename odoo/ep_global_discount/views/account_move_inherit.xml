@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="account_move_form_inherit" model="ir.ui.view">
+            <field name="name">account.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='invoice_line_ids']//field[@name='price_unit']" position="before">
+                    <field name="is_discount_line" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='amount_untaxed']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('amount_discount', '!=', 0)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='amount_untaxed']" position="before">
+                    <field name="amount_discount"/>
+                    <field name="amount_untaxed" string="Montant HT(avec remise)" widget='monetary' options="{'currency_field': 'currency_id'}" attrs="{'invisible': [('amount_discount', '=', 0)]}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='narration']" position="after">
+                    <label for="discount_type" string="Type de remise :"/>
+                    <div>
+                        <field name="discount_type"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                    </div>
+                    <label for="discount_rate" string="Taux de remise :"/>
+                    <div>
+                        <field name="discount_rate" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                    </div>
+                </xpath>
+                <xpath expr="//page[@id='invoice_tab']" position="inside">
+                      <button name="action_discount" string="Appliquer la remise" style="width:200px!important" type="object" class="oe_highlight" attrs="{'invisible': [('id', '=', False)]}"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

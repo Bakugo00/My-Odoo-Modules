@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+	
+	<!--
+        Timbre
+        -->
+        <record id="tva_stamp1" model="account.tax">
+            <field name="name">Timbre 1,0%</field>
+            <field name="description">1.0</field>
+            <field name="amount" eval="1.0"/>
+            <field name="amount_type">percent</field>
+            <field name="sequence" eval="9"/>
+            <field name="type_tax_use">none</field>
+            <field name="is_stamp" eval="True"/>
+            <field name="min_value" eval="5.0"/>
+            <field name="max_value" eval="2500.0"/>
+            <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+                (0, 0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+                (0, 0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                    'account_id': ref('l10n_dz.pcg_44575'),
+                }),
+            ]"/>
+            <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+                (0, 0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+                (0, 0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                    'account_id': ref('l10n_dz.pcg_44575'),
+                }),
+            ]"/>
+        </record>
+    </data>
+</openerp>

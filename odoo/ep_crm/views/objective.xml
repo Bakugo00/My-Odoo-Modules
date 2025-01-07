@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="objective_form" model="ir.ui.view">
+            <field name="name">objective.form</field>
+            <field name="model">objective</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button string="Exécuter" name="to_progress" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('state', '!=', 'draft')]}" invisible="1"/>
+                        <button string="Réaliser" name="to_realized" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('state', '!=', 'in progress')]}" invisible="1"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,in progress,realized"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+<!--                            <label string="Numéro Objectif"/>-->
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="active" invisible="1"/>
+                                <field name="user_id" required="1"
+                                       options="{'no_open': True,'no_quick_create':True,'no_create_edit': True,'no_create': True}"/>
+                                <field name="type" required="1"
+                                       options="{'no_open': True,'no_quick_create':True,'no_create_edit': True,'no_create': True}"/>
+                                <field name="objective" required="1"/>
+                            </group>
+                            <group>
+                                <field name="start_date"  required="1"/>
+                                <field name="end_date"  required="1"/>
+                                <field name="progress" widget="progressbar"/>
+                            </group>
+                        </group>
+                            <group>
+                                <field name="comment"/>
+                            </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="objective_list" model="ir.ui.view">
+            <field name="name">Objectifs</field>
+            <field name="model">objective</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" optional="show"/>
+                    <field name="type" optional="show"/>
+                    <field name="user_id" optional="show"/>
+                    <field name="objective" optional="show"/>
+                    <field name="start_date" optional="show"/>
+                    <field name="end_date" optional="show"/>
+                    <field name="comment" optional="hide"/>
+                    <field name="state" optional="show" widget="badge" decoration-info="state == 'draft'"
+                           decoration-warning="state == 'in progress'" decoration-success="state == 'realized'"/>
+                    <field name="progress" optional="show" widget="progressbar"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="objective_graph" model="ir.ui.view">
+            <field name="name">objective.graph</field>
+            <field name="model">objective</field>
+            <field name="arch" type="xml">
+                <graph string="Graphe des objectifs" sample="1">
+                    <field name="type_id"/>
+                    <field name="user_id" string="Utilisateur"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="objective_action" model="ir.actions.act_window">
+            <field name="name">Objectifs</field>
+            <field name="res_model">objective</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="context">{}</field>
+            <!--            <field name="domain">[('is_approved_user', '=', 1) ]</field>-->
+            <!--            <field name="domain">[ ('user_ids','=',uid)]</field>-->
+        </record>
+
+        <record model="ir.actions.server" id="action_server_objectif">
+            <field name="name">Server Action</field>
+            <field name="model_id" ref="model_objective"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model._compute_progress()</field>
+        </record>
+
+        <menuitem
+                id="objective_menu"
+                action="objective_action"
+                parent="crm.crm_menu_sales"
+                groups="group_objective_collaborateur"
+                sequence="6"
+        />
+
+        <record forcecreate="True" id="ir_cron_compute_progress" model="ir.cron">
+            <field name="name">Calculer le taux de réalisation d'objectif</field>
+            <field name="model_id" ref="model_objective"/>
+            <field name="state">code</field>
+            <field name="code">model._compute_progress_cron()</field>
+            <field eval="True" name="active"/>
+            <!--            <field name="user_id" ref="base.user_root"/>-->
+            <field name="interval_number">5</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+    </data>
+</odoo>

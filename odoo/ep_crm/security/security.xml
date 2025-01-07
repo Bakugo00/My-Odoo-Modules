@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!--  ir rule for objective -->
+        <record id="objective_group_sale_salesman_rule" model="ir.rule">
+            <field name="name">Visibilité des objectifs : group_sale_salesman</field>
+            <field ref="model_objective" name="model_id"/>
+            <field name="domain_force">[('user_id','=',user.id)]</field>
+            <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="active" eval="False"/>
+        </record>
+
+        <record id="objective_group_sale_salesman_all_leads_group_sale_manager_rule" model="ir.rule">
+            <field name="name">Visibilité des objectifs : group_sale_salesman_all_leads,group_sale_manager </field>
+            <field ref="model_objective" name="model_id"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman_all_leads')),
+            (4, ref('sales_team.group_sale_manager')) ]"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="active" eval="False"/>
+        </record>
+    </data>
+</odoo>

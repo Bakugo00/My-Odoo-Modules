@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <odoo>
+	<data>
+
+		<!-- TREE VIEW -->
+		<record id="mission_object_tree_view" model="ir.ui.view">
+			<field name="name">Object de la mission</field>
+			<field name="model">hr.mission.object</field>
+			<field name="arch" type="xml">
+				<tree editable="top">
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- RECHERCHE -->
+        <record id="mission_object_form_search" model="ir.ui.view">
+            <field name="name">Object de la mission</field>
+            <field name="model">hr.mission.object</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <search>
+                	<field name="name" string="Object de la mission"/>
+                </search>
+            </field>
+        </record>
+
+		<!-- ACTION -->
+		<record id="mission_object_action" model="ir.actions.act_window">
+			<field name="name">Object de la mission</field>
+			<field name="res_model">hr.mission.object</field>
+			<field name="view_mode">tree</field>
+			<field name="search_view_id" ref="mission_object_form_search"/>
+			<field name="help" type="html">
+                <p class="oe_view_nocontent_create">Créer votre premier objet de mission</p>
+            </field>
+		</record>
+
+		<!-- MENU -->
+		<menuitem id="object_mission_menu" name="Objets de la mission" sequence="2"
+			parent="order_mission_menus" action="mission_object_action"/>
+	</data>     
+</odoo>

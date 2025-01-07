@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- inherited template of quotation report -->
+        <template id="report_inherite_saleorder_add_stamp" inherit_id="ep_vente.report_inherite_saleorder">
+
+            <xpath expr="//div[@id='total']/div/table/tr[contains(@class,'o_total')]" position="before">
+                <tr t-if="doc.amount_stamp != 0">
+                    <td name="td_amount_stamp_label">
+                        <strong>Montant Timbre</strong>
+                    </td>
+                    <td name="td_amount_stamp" class="text-end">
+                        <span t-field="doc.amount_stamp"/>
+                    </td>
+                </tr>
+            </xpath>
+        </template>
+    </data>
+
+</odoo>

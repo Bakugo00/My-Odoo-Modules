@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="show_activity_done" model="ir.actions.act_window">
+            <field name="res_model">mail.message</field>
+            <field name="name">Activitées Terminées</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"create": False}</field>
+            <field name="domain">[('contact_id','=', active_id)]</field>
+
+        </record>
+        <record id="show_activity" model="ir.actions.act_window">
+            <field name="res_model">mail.activity</field>
+            <field name="name">Activitées</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"create": False}</field>
+            <field name="domain">[('contact_id','=', active_id)]</field>
+
+        </record>
+
+        <record id="res_partner_form_inherit_2" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit.2</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+            <div class="oe_button_box" name="button_box">
+                <button name="%(show_activity_done)d" class="oe_stat_button"
+                        icon="fa-check-square-o" type="action" string="Activitées Terminées"
+                        context="{'search_default_contact_id': id}">
+                </button>
+                <button name="%(show_activity)d" class="oe_stat_button"
+                        icon="fa-clock-o" type="action" string="Activitées"
+                        context="{'search_default_contact_id': id}">
+                </button>
+            </div>
+
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="portfolio_ids" widget="many2many_tags" options="{'no_open': True,'no_quick_create':True,'no_create_edit': True,'no_create': True}" attrs="{'readonly': [('parent_id', '!=', False)]}"/>
+                </xpath>
+                <xpath expr="//page[@name='contact_addresses']//field[@name='child_ids']/form/sheet/group/group//field[@name='name']" position="after">
+                    <field name="portfolio_ids" widget="many2many_tags" options="{'no_open': True,'no_quick_create':True,'no_create_edit': True,'no_create': True}" attrs="{'readonly': [('parent_id', '!=', False)]}"/>
+                </xpath>
+                <xpath expr="//page[@name='contact_addresses']//field[@name='child_ids']" position="attributes">
+                    <attribute name="context">{'default_portfolio_ids': portfolio_ids}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+<!--        <record id="account.res_partner_action_customer" model="ir.actions.act_window">-->
+<!--              <field name="domain">[ '|', ('portfolio_ids','!=',[]) , ('portfolio_ids.user_ids','=',uid)  ]</field>-->
+<!--        </record>-->
+
+<!--        <record id="base.action_partner_form" model="ir.actions.act_window">-->
+<!--              <field name="domain">[ '|', ('portfolio_ids','!=',[]) ,('portfolio_ids.user_ids','=',uid) ]</field>-->
+<!--        </record>-->
+
+<!--        decoration-muted="state == 'cancel'"-->
+        <record id="inherit_res_partner_kanban_view" model="ir.ui.view">
+            <field name="name">res.partner.kanban.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban/field[@name='display_name']" position="before">
+                    <field name="show_form" invisible="1"/>
+                </xpath>
+                <xpath expr="//kanban//templates//field[@name='display_name']" position="before">
+                    <button class="btn btn-danger rounded-circle mr-2"  style="width: 40px; height: 40px;" attrs="{'invisible': [('show_form', '=', True)]}">
+                        <i class="fa fa-lock"></i>
+                    </button>                
+                </xpath>
+            </field>
+        </record>
+        <record id="view_partner_tree_inherit" model="ir.ui.view">
+            <field name="name">res.partner.tree.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='display_name']" position="before">
+                    <field name="show_form" invisible="1"/>
+                    <button class="btn btn-danger fa fa-lock" attrs="{'invisible': [('show_form', '=', True)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="crm_lead_partner_kanban_view_inherit" model="ir.ui.view">
+            <field name="name">res.partner.kanban.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="sale.crm_lead_partner_kanban_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//a[@data-name='action_view_sale_order']" position="attributes">
+                    <attribute name="t-if">false</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Actions -->
+    <record id="incubator_etudiants_action" model="ir.actions.act_window">
+        <field name="name">Etudiants</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">incubator.students</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+    <record id="incubator_projects_action" model="ir.actions.act_window">
+        <field name="name">Projects</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">incubator.projects</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+    <record id="incubator_objective_action" model="ir.actions.act_window">
+        <field name="name">Objective</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">incubator.objective</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+    <!-- Menus -->
+    <menuitem
+        id="incubator_main_menu"
+        name="Incubator"
+        sequence="16"
+        groups="group_incubator_admin"
+    />
+    <menuitem
+        id="incubator_etudiant_menu"
+        name="Etudiants"
+        sequence="16"
+        parent="incubator_main_menu"
+        action="incubator_etudiants_action"
+        groups="group_incubator_admin,group_faculty_rep"
+    />
+    <menuitem
+        id="incubator_projects_menu"
+        name="Projects"
+        sequence="16"
+        parent="incubator_main_menu"
+        action="incubator_projects_action"
+        groups="group_incubator_admin,group_faculty_rep"
+    />
+    <menuitem
+        id="incubator_objective_menu"
+        name="Objectives"
+        sequence="16"
+        parent="incubator_main_menu"
+        action="incubator_objective_action"
+        groups="group_incubator_admin"
+    />
+</odoo>

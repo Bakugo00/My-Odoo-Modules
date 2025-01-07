@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="payroll_centralizer_template_id">
+			<t t-call="web.basic_layout">
+				<div class="header" style="font-family:Calibri;">
+					<table width="100%">
+						<tr width="100%">
+							<td width="65%" style="padding-bottom:30px;">
+								<b><span t-esc="env.company.name" style="font-family:Arial;font-size:28px"/></b>
+								<br/><br/>
+								<span t-esc="env.company.street" style="font-size:18px"/>
+								<span t-esc="env.company.street2" style="font-size:18px"/>
+								<span t-esc="env.company.city" style="font-size:18px"/>
+								<br/><br/>
+							</td>
+							<td width="35%" align="right">
+								PAGE: <span class="page" />
+								<br/><br/>
+								Edition du: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y %H:%M')"/>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="page" style="font-family:Calibri;">
+					<t t-set='nb_eff' t-value="get_rubriques(data['month'])[0]"/>
+					<t t-set='lines' t-value="get_rubriques(data['month'])[1]"/>
+					<t t-set='total_gain' t-value="get_rubriques(data['month'])[2]"/>
+					<t t-set='total_retenu' t-value="get_rubriques(data['month'])[3]"/>
+					<t t-set='net' t-value="get_rubriques(data['month'])[4]"/>
+					<h3 align="center">CENTRALISATEUR GENERAL</h3>
+					<br/>
+					<div class="row">
+						<div class="col-6">
+							(# <span t-esc="nb_eff" style="font-size:18px"/> SALARIE(S))
+						</div>
+						<div class="col-6" style='text-align:right'>
+							Période: <span t-esc="date" style="font-size:18px"/>
+						</div>
+					</div>
+					<table width="100%">
+						<tr>
+							<th style='border:1px solid black;text-align:center'>COMPTE</th>
+							<th style='border:1px solid black;text-align:center'>CODE</th>
+							<th style='border:1px solid black;text-align:center'>LIBELLE</th>
+							<th style='border:1px solid black;text-align:center'>N/BASE</th>
+							<th style='border:1px solid black;text-align:center'>GAIN</th>
+							<th style='border:1px solid black;text-align:center'>RETENUE</th>
+							<th style='border:1px solid black;text-align:center'>EFF</th>
+						</tr>
+						<tr t-foreach="lines" t-as='rub'>
+							<td style='border:1px solid black'></td>
+							<td style='border:1px solid black;text-align:center'><span t-esc="rub['code']"/></td>
+							<td style='border:1px solid black;padding-left:5px'><span t-esc="rub['name']"/></td>
+							<td style='border:1px solid black;text-align:right;padding-right:5px'>
+								<t t-if="rub['type'] == 'base'"><span t-esc="rub['somme']" t-options='{"widget": "float", "precision": 2}'/></t>
+								<t t-if="rub['type'] != 'base'">
+									<t t-if="rub['base'] != -1">
+										<span t-esc="rub['base']" t-options='{"widget": "float", "precision": 2}'/>
+									</t>
+								</t>
+							</td>
+							<td style='border:1px solid black;text-align:right;padding-right:5px'><t t-if="rub['type'] == 'gain'"><span t-esc="rub['somme']" t-options='{"widget": "float", "precision": 2}'/></t></td>
+							<td style='border:1px solid black;text-align:right;padding-right:5px'><t t-if="rub['type'] == 'retenu'"><span t-esc="rub['somme']" t-options='{"widget": "float", "precision": 2}'/></t></td>
+							<td style='border:1px solid black;text-align:right;padding-right:5px'><span t-esc="rub['eff']"/></td>				
+						</tr>
+						<tr>
+							<td style='border:1px solid black;text-align:right;padding-right:5px' colspan="4">TOTAL GENERAL</td>
+							<td style='border:1px solid black;text-align:right;padding-right:5px'><b><span t-esc="total_gain" t-options='{"widget": "float", "precision": 2}'/></b></td>
+							<td style='border:1px solid black;text-align:right;padding-right:5px'><b><span t-esc="total_retenu" t-options='{"widget": "float", "precision": 2}'/></b></td>
+							<td style='border:1px solid black'/>
+						</tr>
+					</table>
+					<p>
+						Arrêté le NET A PAYER du présent état à la somme de: <br/> <span t-esc="amount_to_text_fr(net,'DA')"/>
+					</p>
+				</div>
+				<!--<div class='page'>
+					<h3 align="center">CENTRALISATEUR GENERAL / CHARGES PATRONALES</h3>
+					<br/>
+					<div class="row">
+						<div class="col-6">
+							(# 14 SALARIES)
+						</div>
+						<div class="col-6" style='text-align:right'>
+							Période: <span t-esc="date" style="font-size:18px"/>
+						</div>
+					</div>
+					<table width="100%">
+						<tr>
+							<th style='border:1px solid black;text-align:center'>CPTE DEBIT</th>
+							<th style='border:1px solid black;text-align:center'>CPTE CRD</th>
+							<th style='border:1px solid black;text-align:center'>CODE</th>
+							<th style='border:1px solid black;text-align:center'>LIBELLE</th>
+							<th style='border:1px solid black;text-align:center'>N/BASE</th>
+							<th style='border:1px solid black;text-align:center'>TAUX</th>
+							<th style='border:1px solid black;text-align:center'></th>
+							<th style='border:1px solid black;text-align:center'>MONTANT</th>
+							<th style='border:1px solid black;text-align:center'>EFF</th>
+						</tr>
+					</table>
+				</div>-->
+			</t>
+		</template>
+	</data>
+</odoo>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="company_status_form" model="ir.ui.view">
+            <field name="name">company.status.form</field>
+            <field name="model">company.status</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="company_status_list" model="ir.ui.view">
+            <field name="name">Statut d'entreprise</field>
+            <field name="model">company.status</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="company_status_action" model="ir.actions.act_window">
+            <field name="name">Statut d'entreprise</field>
+            <field name="res_model">company.status</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem
+                id="company_status_menu"
+                action="company_status_action"
+                parent="contacts.res_partner_menu_config"
+                sequence="1"
+        />
+
+    </data>
+</odoo>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="email_form" model="ir.ui.view">
+            <field name="name">email.form</field>
+            <field name="model">email</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" widget="email"/>
+                                <field name="active" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="default_email"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="email_list" model="ir.ui.view">
+            <field name="name">Liste des emails</field>
+            <field name="model">email</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" widget="email"/>
+                    <field name="default_email"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="phone_form" model="ir.ui.view">
+            <field name="name">phone.form</field>
+            <field name="model">phone</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" widget="phone"/>
+                                <field name="active" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="default_phone"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="phone_list" model="ir.ui.view">
+            <field name="name">Liste des téléphones</field>
+            <field name="model">phone</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" widget="phone"/>
+                    <field name="default_phone"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

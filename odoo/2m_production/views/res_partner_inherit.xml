@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="partner_view_inherit">
+            <field name="name">partner.view.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="unpaid_amount_authorized"/>
+                </xpath>
+
+                <xpath expr="//field[@name='customer']" position="after">
+                    <field name="customer_type"
+                           attrs="{ 'invisible': [('customer', '=', False)],
+                                    'required' : [('customer', '=', True)] }"/>
+                    <field name="categorie_client_id"
+                           attrs="{ 'invisible': [('customer', '=', False)],
+                                    'required' : [('customer_type', '=', 'end_customer')] }"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

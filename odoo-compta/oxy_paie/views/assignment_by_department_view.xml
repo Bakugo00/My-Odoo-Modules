@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_assign_prime_departement_wizard" model="ir.ui.view">
+			<field name="name">Assigner par département</field>
+			<field name="model">assignment.by.department</field>
+			<field name="arch" type="xml">
+				<form string="Assigner par département">
+					<group>
+						<field name="department_id" required="1" class="oe_inline"/>
+						<field name="rate"  class="oe_inline"/>
+					</group>
+					<footer>
+						<button name="enregistrer" string="Enregistrer" type="object" class="oe_highlight"/>
+						or
+						<button string="Cancel" class="oe_link" special="cancel"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		
+	</data>
+</odoo>

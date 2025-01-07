@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="0">
+
+        <record id="group_mrp_user_sup" model="res.groups">
+            <field name="name">Valider les ordres de travail</field>
+        </record>
+
+        <record id="group_sale_create_all_quotations" model="res.groups">
+            <field name="name">Créer des devis sans control sur les montants</field>
+        </record>
+
+    </data>
+
+</odoo>

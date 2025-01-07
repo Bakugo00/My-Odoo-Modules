@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="sale_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//header/button[@name='action_quotation_send'][1]"
+                    position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//header/button[@name='action_quotation_send'][2]"
+                    position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//header/button[@name='action_quotation_send'][3]"
+                    position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//header/button[@name='action_quotation_send'][4]"
+                    position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//header/button[@name='action_confirm'][1]" position="attributes">
+                    <attribute name="confirm">Êtes-vous sûr de confirmer le devis ?</attribute>
+                </xpath>
+
+                <xpath expr="//header/button[@name='action_confirm'][2]" position="attributes">
+                    <attribute name="confirm">Êtes-vous sûr de confirmer le devis ?</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='action_confirm'][1]" position="after">
+                    <button name="action_lost" string="Devis Perdu" type="object"
+                        attrs="{'invisible': [('state', 'in', ('sale', 'lost') )]}"
+                        confirm="Êtes-vous sûr de rendre le devis perdu" />
+                </xpath>
+
+                <!-- <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="payment_method"/>
+                </xpath> -->
+                <xpath expr="//group[@name='order_details']" position="inside">
+                    <field name="devis_doublons" widget="checkbox" />
+                    <field name="devis_liste"
+                        attrs="{'invisible': [ ('devis_doublons', '!=', True)]}" />
+                </xpath>
+
+                <xpath expr="//field[@name='partner_id']" position="after">
+
+                    <field name="contact_id"
+                        domain="[('parent_id', '=', partner_id),('company_type', '=', 'person')]"
+                        options="{'no_create': True, 'no_create_edit': True,'no_quick_create': True, 'no_open': True}"
+                        attrs="{'readonly': [('state', 'not in', ('sent','draft'))]}" />
+
+                    <field name="file_name" invisible="1" />
+                    <field name="customer_quotation_doc" filename="file_name" widget="binary"
+                        attrs="{'readonly': [('state', 'not in', ('sent','draft'))]}" />
+
+                    <field name="negotiation_step_id"
+                        options="{'no_create': True, 'no_create_edit': True,'no_quick_create': True, 'no_open': True}"
+                        attrs="{'readonly': [('state', 'not in', ('sent','draft'))]}" />
+                </xpath>
+
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <!--                    <attribute name="domain">[('company_type', '=', 'company'),
+                    ('customer','=',True)]</attribute>-->
+                    <attribute name="options">{'no_create': True, 'no_create_edit':
+                        True,'no_quick_create': True,
+                        'no_open': True}
+                    </attribute>
+                    <attribute name="attrs">{'readonly': [('state', 'not in', ('sent','draft'))]}</attribute>
+                    <attribute name="context">
+                        {'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat':
+                        True,'default_customer':True,'default_is_company':True,'show_portoflio_contacts':True}
+                    </attribute>
+                </xpath>
+
+
+                <xpath expr="//field[@name='tax_totals']" position="replace">
+                    <!-- <field name="amount_discount"/> -->
+                    <field name="amount_untaxed" widget='monetary'
+                        options="{'currency_field': 'currency_id'}" string="Montant HT" />
+                    <field name="amount_tax" widget='monetary'
+                        options="{'currency_field': 'currency_id'}" string="Montant TVA" />
+                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                        <label for="amount_total" />
+                    </div>
+                    <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator"
+                        widget='monetary' options="{'currency_field': 'currency_id'}" />
+                </xpath>
+
+                <!-- Round off the discount field -->
+                <xpath expr="//field[@name='order_line']/tree/field[@name='discount']"
+                    position="attributes">
+                    <attribute name="digits">[16, 2]</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='validity_date']" position="attributes">
+                    <attribute name="attrs">{'invisible': 0 , 'readonly': [('state', 'in', ['sale',
+                        'done'])] }
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_invoice_id']" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_create_edit':
+                        True,'no_quick_create': True,
+                        'no_open': True}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_shipping_id']" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_create_edit':
+                        True,'no_quick_create': True,
+                        'no_open': True}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//div[@class='o_td_label'][2]" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible': [('state', 'in', ['draft', 'sent', 'lost'])]}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='date_order'][2]" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible': [('state', 'in', ['draft', 'sent', 'lost'])]}
+                    </attribute>
+                </xpath>
+
+                <!-- <xpath expr="//field[@name='amount_tax']" position="attributes">
+                    <attribute name="string">Montant TVA</attribute>
+                </xpath> -->
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='tax_id']"
+                    position="attributes">
+                    <attribute name="string">TVA</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', 'not in', ('draft','sent'))]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='team_id']" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_create_edit':
+                        True,'no_quick_create': True,
+                        'no_open': True}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_create_edit':
+                        True,'no_quick_create': True,
+                        'no_open': True}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='fiscal_position_id']" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_create_edit':
+                        True,'no_quick_create': True,
+                        'no_open': True}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']"
+                    position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_create_edit':
+                        True,'no_quick_create': True,
+                        'no_open': True}
+                    </attribute>
+                </xpath>
+
+                <xpath
+                    expr="//page[@name='order_lines']/field[@name='order_line']/tree/field[@name='product_id']"
+                    position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_create_edit':
+                        True,'no_quick_create': True,
+                        'no_open': True}
+                    </attribute>
+                </xpath>
+
+                <xpath
+                    expr="//page[@name='order_lines']/field[@name='order_line']/tree/field[@name='product_template_id']"
+                    position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_create_edit':
+                        True,'no_quick_create': True,
+                        'no_open': True}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='sale_order_option_ids']/tree/field[@name='product_id']"
+                    position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_create_edit':
+                        True,'no_quick_create': True,
+                        'no_open': True}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='sale_order_option_ids']/tree/field[@name='uom_id']"
+                    position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_create_edit':
+                        True,'no_quick_create': True,
+                        'no_open': True}
+                    </attribute>
+                </xpath>
+
+                <xpath
+                    expr="//notebook/page[@name='other_information']/group/group[@name='sales_person']"
+                    position="before">
+                    <group name="customer" string="Client" groups="ep_vente.group_update_customer">
+                        <field name="customer_name" />
+                        <field name="customer_address" />
+                        <!-- <field name="owner_id" string="Utilisateur connecté"/>-->
+                    </group>
+                </xpath>
+
+
+                <!--                <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']"
+                position="after">-->
+                <!--                    <field name="participant_id"
+                options="{'no_quick_create':True,'no_create_edit':True,'no_create_edit': True,
+                'no_open': True}"/>-->
+                <!--                    <field name="participation" sum="Total"/>-->
+                <!--                </xpath>-->
+
+                <xpath expr="//notebook/page[2]" position="after">
+                    <page name="attendees_ids" string="Participants">
+                        <field name="attendees_ids"
+                            attrs="{'readonly': [('state', 'in', ('sale', 'lost' , 'cancel') )]}">
+                            <tree editable="bottom">
+                                <field name="user_id"
+                                    options="{'no_quick_create':True,'no_create_edit':True,'no_create_edit': True, 'no_open': True}" />
+                                <field name="participation" sum="Total" />
+                                <field name="amount_participant" sum="Montant" widget="monetary"
+                                    options="{'currency_field': 'currency_id'}" />
+                                <field name="currency_id" invisible="1" />
+                            </tree>
+                            <form>
+                                <sheet>
+                                    <group>
+                                        <field name="user_id"
+                                            options="{'no_create': True, 'no_create_edit': True,'no_quick_create': True ,
+                        'no_open': True}" />
+                                        <field name="participation" />
+                                        <field name="amount_participant" />
+                                        <field name="currency_id" invisible="1" />
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='product_template_id']" position="attributes">
+                    <attribute name="domain">[('state','=','confirmed'),('sale_ok', '=', True), '|',
+                        ('company_id', '=', False), ('company_id', '=', parent.company_id)]</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sale_order_list_inherit" model="ir.ui.view">
+            <field name="name">sale.order.list.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding" />
+            <field name="arch" type="xml">
+
+
+                <xpath expr="//field[@name='amount_tax']" position="attributes">
+                    <attribute name="string">Montant TVA</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='amount_total']" position="after">
+                    <field name="negotiation_step_id" optional="show" />
+                </xpath>
+
+                <xpath expr="//field[@name='amount_untaxed']" position="before">
+                    <field name="attendees_amount_ids" widget="many2many_tags" string="Mon Montant"
+                        optional="show" />
+                    <!--                    <field name="amount_participant" sum="total" optional="show"/>-->
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <!--        &lt;!&ndash;         Scheduled action to compute paticipant amount in every 1
+        minute&ndash;&gt;-->
+        <!--        <record forcecreate="True" id="ir_cron_compute_amount_participant_sale_order"
+        model="ir.cron">-->
+        <!--            <field name="name">Calculer le montant de participation du participant connecté dans le
+        devis</field>-->
+        <!--            <field name="model_id" ref="model_sale_order"/>-->
+        <!--            <field name="state">code</field>-->
+        <!--            <field name="code">model._compute_amount_participant_sale_order_ir_cron()</field>-->
+        <!--            <field eval="True" name="active"/>-->
+        <!--&lt;!&ndash;
+        <field name="user_id" ref="base.user_root"/>&ndash;&gt;-->
+        <!--            <field name="interval_number">1</field>-->
+        <!--            <field name="interval_type">minutes</field>-->
+        <!--            <field name="numbercall">-1</field>-->
+        <!--        </record>-->
+
+        <!--        &lt;!&ndash;         Scheduled action to compute connected user in every 1 minute&ndash;&gt;-->
+        <!--        <record forcecreate="True" id="ir_cron_compute_user" model="ir.cron">-->
+        <!--            <field name="name">Mettre à jours l'utilisateur connecté dans le devis</field>-->
+        <!--            <field name="model_id" ref="model_sale_order"/>-->
+        <!--            <field name="state">code</field>-->
+        <!--            <field name="code">model._compute_user_ir_cron()</field>-->
+        <!--            <field eval="True" name="active"/>-->
+        <!--            <field name="interval_number">1</field>-->
+        <!--            <field name="interval_type">minutes</field>-->
+        <!--            <field name="numbercall">-1</field>-->
+        <!--        </record>-->
+
+
+        <!--        <record model="ir.actions.server" id="action_server_compute_amount">-->
+        <!--            <field name="name"> Compute Server Action</field>-->
+        <!--            <field name="model_id" ref="model_sale_order"/>-->
+        <!--            <field name="type">ir.actions.server</field>-->
+        <!--            <field name="state">code</field>-->
+        <!--            <field name="code">model.test()</field>-->
+        <!--        </record>-->
+
+
+    </data>
+</odoo>

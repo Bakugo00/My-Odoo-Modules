@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<odoo>
+    <data>
+
+        <record id="mrp_workorder_tree_view_inherit" model="ir.ui.view">
+            <field name="name">mrp.workorder.tree.inherit</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.mrp_production_workorder_tree_editable_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='workcenter_id']" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_create_edit': True,'no_quick_create': True , 'no_open':True}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='operation_id']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                    <attribute name="options">{'no_create': True, 'no_create_edit': True,'no_quick_create': True, 'no_open':True}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='workcenter_id']" position="after">
+                    <field name="employee_ids" widget="many2many_tags" optional="show"
+                           options="{'no_create': True, 'no_create_edit': True,'no_quick_create': True, 'no_open': True, 'no_open':True}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Description</attribute>
+                    <attribute name="required">0</attribute>
+                    <attribute name="attrs">{'column_invisible': 1}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='duration_expected']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='workcenter_id']" position="after">
+                    <field name="imprimante"/>
+                </xpath>
+
+                <xpath expr="//field[@name='state']" position="attributes">
+                    <attribute name="decoration-success">"state in ('done', 'validate')"</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='button_finish']" position="after">
+                    <button name="button_validate" type="object" string="Valider" class="btn-success"
+                            attrs="{'invisible': ['|', ('production_state', 'in', ('draft', 'done')), ('state','!=', 'done')]}"
+                            groups="2m_production.group_mrp_user_sup"
+                    />
+                    <button name="button_restart" type="object" string="Relancer" class="btn-warning"
+                            attrs="{'invisible': ['|', ('production_state', 'in', ('draft', 'done')), ('state','!=', 'done')]}"
+                    />
+
+                </xpath>
+
+                <xpath expr="//button[@name='%(mrp.act_mrp_block_workcenter_wo)d']" position="after">
+
+                    <button name="send_email" type="object"
+                            class="oe_highlight" string="Envoyer email"
+                            attrs="{'invisible': [ ('production_state', 'in', ('draft', 'done')) ]}"
+                    />
+                </xpath>
+
+                <xpath expr="//button[@name='button_start']" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible': ['|', '|', '|', ('production_state','in', ('draft', 'done')), ('working_state',
+                        '=', 'blocked'), ('state', 'in', ('draft', 'done', 'pending', 'validate')), ('is_user_working',
+                        '!=',
+                        False)]}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='%(mrp.act_mrp_block_workcenter_wo)d']" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible': ['|','|', ('production_state', 'in', ('draft', 'done')), ('working_state', '=',
+                        'blocked'),('state', 'in', ('draft', 'done', 'pending' , 'validate'))]}
+                    </attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="mrp_workorder_form_view_inherit" model="ir.ui.view">
+            <field name="name">mrp.workorder.form.inherit</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit"/>
+            <field name="arch" type="xml">
+
+                <!--                Comment this -> problem in server -->
+                <!--                <xpath expr="//sheet/field[@name='workcenter_id']" position="after">-->
+                <!--                    &lt;!&ndash;                <xpath expr="//sheet/field[@name='date_planned_start']" position="before">&ndash;&gt;-->
+                <!--                    <div class="oe_title">-->
+                <!--                        <h1>-->
+                <!--                            <field name="production_id" nolabel="1"/>-->
+                <!--                        </h1>-->
+                <!--                    </div>-->
+                <!--                </xpath>-->
+
+                <!--                Comment this -> problem in server -->
+                <!--                <xpath expr="//sheet/notebook/page[@name='time_tracking']/group/field[@name='time_ids']/tree"-->
+                <!--                       position="attributes">-->
+                <!--                    <attribute name="create">false</attribute>-->
+                <!--                    <attribute name="delete">false</attribute>-->
+                <!--                    &lt;!&ndash;                    <attribute name="edit">false</attribute>&ndash;&gt;-->
+                <!--                </xpath>-->
+
+                <!--                Comment this -> problem in server -->
+                <!--                <xpath expr="//sheet/notebook/page[@name='time_tracking']/group/field[@name='time_ids']/tree/field[@name='date_start']"-->
+                <!--                       position="attributes">-->
+                <!--                    <attribute name="readonly">1</attribute>-->
+                <!--                </xpath>-->
+
+                <!--                Comment this -> problem in server -->
+                <!--                <xpath expr="//sheet/notebook/page[@name='time_tracking']/group/field[@name='time_ids']/tree/field[@name='date_end']"-->
+                <!--                       position="attributes">-->
+                <!--                    <attribute name="readonly">1</attribute>-->
+                <!--                </xpath>-->
+
+                <!--                Comment this -> problem in server -->
+                <!--                <xpath expr="//sheet/notebook/page[@name='time_tracking']/group/field[@name='time_ids']/tree/field[@name='user_id']"-->
+                <!--                       position="attributes">-->
+                <!--                    <attribute name="readonly">1</attribute>-->
+                <!--                </xpath>-->
+
+                <!--                Comment this -> problem in server -->
+                <!--                <xpath expr="//sheet/notebook/page[@name='time_tracking']/group/field[@name='time_ids']/tree/field[@name='loss_id']"-->
+                <!--                       position="attributes">-->
+                <!--                    <attribute name="readonly">1</attribute>-->
+                <!--                </xpath>-->
+
+                <!--                <xpath expr="//sheet/notebook/page[@name='workorder_page_work_instruction']" position="after">-->
+                <page name="workorder_page_work_instruction" position="after">
+                    <page
+                            string="Informations du vente"
+                            name="sale_info"
+                    >
+                        <groupe>
+                            <group>
+                                <field name="sale_id"/>
+                                <field name="partner_id"/>
+                            </group>
+                            <group>
+                                <field name="commitment_date"/>
+                                <field name="client_order_ref"/>
+                            </group>
+                        </groupe>
+                    </page>
+
+                    <page name="document" string="Documents">
+
+                        <field name="doc_ids" nolabel="1" string="Documents">
+                            <!--                            attrs="{'readonly': [('state', 'in', ('cancel','validate','done') )]}"-->
+                            <tree create="1" delete="1" edit="1" editable="bottom">
+                                <field name="ref_document" optional="show"/>
+                                <field name="name" optional="show"/>
+                                <field name="file_name" invisible="1"/>
+                                <field name="document" optional="show" filename="file_name" widget="binary"/>
+                            </tree>
+                            <form name="documents" string="Document">
+                                <group>
+                                    <group>
+                                        <field name="ref_document"/>
+                                        <field name="name"/>
+                                    </group>
+                                    <group>
+                                        <field name="file_name" invisible="1"/>
+                                        <field name="document" string="Téléchargement de la Piéce jointe"
+                                               optional="show" filename="file_name" widget="binary"/>
+                                    </group>
+                                </group>
+
+                            </form>
+                        </field>
+                    </page>
+
+                </page>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

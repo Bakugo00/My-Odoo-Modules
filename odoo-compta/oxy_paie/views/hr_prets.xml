@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_payroll_prets_form" model="ir.ui.view">
+            <field name="name">view.payroll.prets</field>
+            <field name="model">hr.prets</field>
+            <field name="arch" type="xml">
+                <form string="Les prêts">
+                    <header>
+                        <button name="valider" string="Valider" type="object" attrs="{'invisible':[('state','!=','draft')]}" confirm="Veuillez confirmer svp"/>
+                        <button name="reporter" string="Report d'une période" type="object" attrs="{'invisible':[('state','!=','done')]}" class="oe_highlight" confirm="Veuillez confirmer svp"/>
+                         <field name='state' widget="statusbar" statusbar_colors='{"done":"red","payee":"blue"}'/>
+                    </header>
+                    <sheet>
+                        <group col='4'>
+                            <field name="employee_id" class="oe_inline" attrs="{'readonly':[('state','=','done')]}"  domain="[('non_actif','=',False)]"/>
+                            <field name="date" class="oe_inline" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="date_remb" class="oe_inline" attrs="{'readonly':[('state','=','done')]}"/> 
+                            <field name="montant" attrs="{'readonly':[('state','=','done')]}"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <separator/>
+                        <label for="reste" string='Reste'/>
+                        <field name="reste" class="oe_inline" /> 
+
+                          
+                            <group col="2" string="Méthode de remboursement">
+                                <field name="nb_mois" class="oe_inline" attrs="{'readonly':[('state','=','done')]}"/>
+                            </group>
+                            <separator/>
+                            <button name='calculer' string="Calculer" type='object' attrs="{'invisible':[('state','=','done')]}"/>
+                            <notebook>
+                                <page string="Lignes des remboursements">
+                                    <field name="pret_lines" attrs="{'readonly':[('state','=','done')]}">
+                                        <tree edit="false" decoration-muted="state == 'rembourser'" decoration-danger="state == 'attente'" create="false" unlink="false">
+                                            <field name="date"/>
+                                            <field name="state"/>
+                                            <field name="montant" sum="Total"/>
+                                            <field name="currency_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_payroll_hr_prets_tree" model="ir.ui.view">
+            <field name="name">view.payroll.hr.prets.tree</field>
+            <field name="model">hr.prets</field>
+            <field name="arch" type="xml">
+                <tree string="Les prêts">
+                    <field name="employee_id"/>
+                    <field name="date"/>
+                    <field name="reste"/>       
+                    <field name="state"/>       
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_payroll_hr_prets" model="ir.actions.act_window">
+            <field name="name">Les prêts</field>
+            <field name="res_model">hr.prets</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_current':1}</field>
+        </record>
+
+        <menuitem 
+            name="Les prêts"
+            id="menu_payroll_prets"
+            parent="om_hr_payroll.menu_hr_payroll_root"
+            action="action_payroll_hr_prets"
+            sequence="16"/>
+    </data>
+</odoo>

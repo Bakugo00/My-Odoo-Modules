@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="journal_paie_form_view" model="ir.ui.view">
+			<field name="name">journal.paie.form.view</field>
+			<field name="model">journal.paie</field>
+			<field name="arch" type="xml">
+				<form string="301 bis">
+					<group>
+						<field name='month' class='oe_inline' required='1'/>
+					</group>
+					<footer>
+						<button name="print_report" string="Imprimer" type="object" class="oe_highlight"/>
+						ou
+						<button string="Annuler" class="oe_link" special="cancel"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="journal_paie_action" model="ir.actions.act_window">
+			<field name="name">Journal paie</field>
+			<field name="res_model">journal.paie</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+		<menuitem name="Rapports" id="menu_reports" parent="om_hr_payroll.menu_hr_payroll_root" groups="hr.group_hr_user"/>
+
+		<menuitem id="journal_paie_menu" parent="menu_reports" groups="hr.group_hr_user" action="journal_paie_action"/>
+	</data>
+</odoo>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="product_category_mp" model="product.category">
+            <field name="name">Matiéres Premières</field>
+        </record>
+
+
+        <!-- <record id="product_category_gf" model="product.category">
+            <field name="name">Grand Format</field>
+        </record> -->
+
+
+        <!-- <record id="product_category_rouleaux" model="product.category">
+            <field name="name">Rouleaux</field>
+        </record> -->
+
+
+        <record id="product_category_plank" model="product.category">
+            <field name="name">Planche</field>
+        </record>
+
+
+        <!-- <record id="product_category_structure" model="product.category">
+            <field name="name">Structure</field>
+        </record> -->
+
+
+        <record id="product_category_card" model="product.category">
+            <field name="name">Carte de visite</field>
+        </record>
+
+
+        <record id="product_category_flayer" model="product.category">
+            <field name="name">Flyer</field>
+        </record>
+
+
+        <record id="product_category_depliant" model="product.category">
+            <field name="name">Dépliant</field>
+        </record>
+
+
+        <record id="product_category_autocollant" model="product.category">
+            <field name="name">Autocollant</field>
+        </record>
+
+
+        <record id="product_category_carte_invitation" model="product.category">
+            <field name="name">Carte d'invitation</field>
+        </record>
+
+
+        <record id="product_category_etiquette" model="product.category">
+            <field name="name">Etiquette</field>
+        </record>
+
+
+        <record id="product_category_papier_entete" model="product.category">
+            <field name="name">Papier à Entête</field>
+        </record>
+
+
+        <record id="product_category_banner" model="product.category">
+            <field name="name">Banner</field>
+        </record>
+
+        <record id="product_category_bloc_note" model="product.category">
+            <field name="name">Bloc note</field>
+        </record>
+
+        <record id="product_category_brochure" model="product.category">
+            <field name="name">Brochure</field>
+        </record>
+
+        <record id="product_category_couverture_brochure" model="product.category">
+            <field name="name">Couverture Brochure</field>
+        </record>
+
+
+        <!--        <record id="product_category_1" model="product.category">-->
+        <!--            <field name="parent_id" ref="product_category_all"/>-->
+        <!--            <field name="name">Saleable</field>-->
+        <!--        <field name="choice_rouleaux">False</field>
+        </record>
+-->
+
+
+    </data>
+</odoo>

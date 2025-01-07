@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t t-name="ep_chatter_search.ChatterTopbar.inherit" t-inherit="mail.ChatterTopbar" owl="1" t-inherit-mode="extension">
+        <xpath expr="//t[@t-if='chatterTopbar.chatter.hasActivities']" position="after">
+            <span class="o-mail-Chatter-topbarGrow1 flex-grow-1 flex-shrink-0 justify-content-end d-flex"/>
+            <button class="o_ChatterTopbar_buttonToggleThreadView" aria-label="Search Messages" title="Search Messages" style="border: 0;" t-on-click="onClickSearch">
+                <i class="oi oi-search" role="img"/>
+            </button>
+        </xpath>
+    </t>
+</templates>

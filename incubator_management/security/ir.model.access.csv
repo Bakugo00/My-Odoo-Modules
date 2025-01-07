@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_incubator_management_admin_etudiants,incubator.management.admin.etudiants,model_incubator_students,group_incubator_admin,1,1,1,1
+access_incubator_management_faculty_rep_etudiants,incubator.management.faculty.rep.etudiants,model_incubator_students,group_faculty_rep,1,0,0,0
+access_incubator_management_admin_projects,incubator.management.admin.projects,model_incubator_projects,group_incubator_admin,1,1,1,1
+access_incubator_management_faculty_rep_projects,incubator.management.faculty.rep.projects,model_incubator_projects,group_faculty_rep,1,0,0,0
+access_incubator_stduent,incubator.management.student,model_incubator_students,group_student,1,1,1,0
+access_incubator_objective_student,incubator.management.objective.student,model_incubator_objective,group_student,1,1,0,0
+access_incubator_objective_admin,incubator.management.objective.admin,model_incubator_objective,group_incubator_admin,1,1,1,1
+
+

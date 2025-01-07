@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="portfolio_category_form" model="ir.ui.view">
+            <field name="name">portfolio.category.form</field>
+            <field name="model">portfolio.category</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="active" invisible="1"/>
+<!--                            <field name="portfolio_ids" widget="many2many_tags"/>-->
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="portfolio_category_list" model="ir.ui.view">
+            <field name="name">Catégories des portefeuilles</field>
+            <field name="model">portfolio.category</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="portfolio_ids" widget="many2many_tags"/>
+                    <field name="company_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="portfolio_category_action" model="ir.actions.act_window">
+            <field name="name">Catégories des portefeuilles</field>
+            <field name="res_model">portfolio.category</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem
+                id="menu_portfolio_category"
+                action="portfolio_category_action"
+                parent="crm.crm_menu_config"
+                groups="sales_team.group_sale_salesman"
+                sequence="2"
+        />
+
+    </data>
+</odoo>

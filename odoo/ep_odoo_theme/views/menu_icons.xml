@@ -1,0 +1,70 @@
+<odoo>
+
+    <data>
+
+        <menuitem
+                name="Configuration"
+                id="base.menu_administration"
+                web_icon="ep_odoo_theme,static/description/images/icons/setting.png"
+        />
+
+        <menuitem
+                name="Applications"
+                id="base.menu_management"
+                web_icon="ep_odoo_theme,static/description/images/icons/applications.png"
+        />
+
+        <menuitem
+                name="Calendrier"
+                id="calendar.mail_menu_calendar"
+                web_icon="ep_odoo_theme,static/description/images/icons/calendar.png"
+        />
+
+        <menuitem
+                name="Discussion"
+                id="mail.menu_root_discuss"
+                web_icon="ep_odoo_theme,static/description/images/icons/discussion.png"
+        />
+
+        <menuitem
+                name="Contacts"
+                id="contacts.menu_contacts"
+                web_icon="ep_odoo_theme,static/description/images/icons/contacts.png"
+        />
+
+        <menuitem
+                name="Vente"
+                id="sale.sale_menu_root"
+                web_icon="ep_odoo_theme,static/description/images/icons/sales.png"
+        />
+
+        <menuitem
+                name="CRM"
+                id="crm.crm_menu_root"
+                web_icon="ep_odoo_theme,static/description/images/icons/crm.png"
+        />
+
+        <menuitem
+                name="Facturation"
+                id="account.menu_finance"
+                web_icon="ep_odoo_theme,static/description/images/icons/invoicing.png"
+        />
+
+        <menuitem
+                id="ep_contrat.contract_menu_root"
+                name="Contrats"
+                web_icon="ep_odoo_theme,static/description/images/icons/crm.png"/>
+
+        <menuitem
+                id="dms.main_menu_dms"
+                name="Documents"
+                web_icon="ep_odoo_theme,static/description/images/icons/document.png"
+        />
+
+         <menuitem id="base.menu_board_root" name="Tableau de bord" sequence="1"
+              web_icon="ep_base,static/description/dashboard.png"
+              groups="base.group_user"/>
+
+    </data>
+</odoo>
+

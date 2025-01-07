@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+    <data noupdate="0">
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', 'in', ['hr_attendance']), ('name', 'in', ['group_hr_attendance_user','hr_attendance_rule_attendance_manual'])]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+        <record id="hr_attendance.hr_attendance_rule_attendance_manual" model="ir.rule">
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+        <!--group hr.attendance manager n+1-->
+        <record id="group_attendance_manager_n" model="res.groups">
+            <field name="name">Manager N+1</field>
+            <field name="category_id" ref="base.module_category_human_resources_attendances"/>
+            <field name="implied_ids" eval="[(4, ref('hr_attendance.group_hr_attendance'))]"/> 
+        </record>
+        
+        <!--access rule for hr.attendance manager n+1 -->
+        <record id="attendance_manager_n_rule" model="ir.rule">
+            <field name="name">attendance.manager.n.rule</field>
+            <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
+            <field name="domain_force">[('employee_id.parent_id','child_of',user.employee_ids.ids)]</field>
+            <field name="groups" eval="[(4,ref('group_attendance_manager_n'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+        
+        <record id="hr_attendance.group_hr_attendance_user" model="res.groups">
+            <field name="implied_ids" eval="[(6,0, [ref('group_attendance_manager_n'),ref('hr.group_hr_user')])]"/> 
+        </record>
+    </data>
+</odoo>

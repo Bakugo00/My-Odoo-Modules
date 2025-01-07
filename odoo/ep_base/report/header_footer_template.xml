@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="header_footer_custom">
+
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
+
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+
+            <div class="header" style="border-bottom: 1px solid black;">
+                <div class="row">
+                    <div class="col-6" style="font-size:14px">
+
+                        <strong style="font-size:18px">
+                            <span t-esc="company.name"/>
+                        </strong>
+                        <br/>
+                        <strong>
+                            <span>N° RC :</span>
+                        </strong>
+                        <span t-esc="company.partner_id.rc"/>
+                        <br/>
+                        <strong>
+                            <span>NIF :</span>
+                        </strong>
+                        <span t-esc="company.partner_id.nif"/>
+                        <br/>
+                        <strong>
+                            <span>N° Art :</span>
+                        </strong>
+                        <span t-esc="company.partner_id.ai"/>
+                        <br/>
+
+                        <t t-if="company.partner_id.bank_ids">
+                            <strong>
+                                <span>Banque :</span>
+                            </strong>
+                            <span t-esc="company.partner_id.bank_ids[0].bank_id.name"/>
+                            <br/>
+<!--                            <strong>-->
+<!--                                <span>Agence :</span>-->
+<!--                            </strong>-->
+<!--                            <span t-esc="company.agence"/>-->
+<!--                            <br/>-->
+                            <strong>
+                                <span>Compte Bancaire :</span>
+                            </strong>
+                            <span t-esc="company.partner_id.bank_ids[0].acc_number"/>
+                        </t>
+                    </div>
+
+                    <!--            <div class="col-xs-4" align="right">-->
+                    <!--             <p></p>-->
+                    <!--                </div>-->
+
+                    <!--                <div class="col-xs-2" style="margin-right: 5%" align="right">-->
+                    <!--                   -->
+                    <div class="col-6">
+                        <div class="d-flex justify-content-end align-items-end">
+                            <img t-att-src="image_data_uri(company.logo)" style="width: 300px; height:50px" />
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="footer">
+                <!--            <div class="row" style="margin-left: 20%;margin-right: 20%;margin-bottom: 30%">-->
+                <!--                <div align="center" style="border-top: 1px solid black; font-size: 10px;">-->
+                <!--                <div align="center" style="font-size: 14px;">-->
+                <br/>
+                <div align="center" class="row"
+                     style="border-top: 1px solid black;font-size: 12px;margin-left: 10%;margin-right: 10%;">
+                    <div class="col-10">
+                        <span>Adresse:</span>
+                        <span t-esc="company.street"/>
+                        <span t-esc="company.city"/>
+                        <span>|</span>
+                        <span>Tél:</span>
+                        <span t-esc="company.phone"/>
+                        <br/>
+                        <!--                        <span>|</span>-->
+                        <t t-if="company.email">
+                            <span>E-mail:</span>
+                            <span t-esc="company.email"/>
+                        </t>
+                        <t t-if="company.website">
+                            <span>|</span>
+                            <span t-esc="company.website"/>
+                        </t>
+                        <br/>
+                        <t t-if="company.partner_id.capital">
+                            <span t-esc="company.name"/>
+                            <span>au capital de</span>
+                            <span t-esc="company.partner_id.capital"/>
+                        </t>
+
+                        <t t-if="company.partner_id.nis">
+                            <span>|</span>
+                            <span>NIS :</span>
+                            <span t-esc="company.partner_id.nis"/>
+                        </t>
+                    </div>
+                    <div>
+                        <br/>
+                        <ul class="list-inline" align="right">
+                            <li>Page:
+                                <span class="page"/>
+                                /
+                                <span class="topage"/>
+                            </li>
+                            <!--                    <li>-->
+                            <!--                        <span class="topage"/>-->
+                            <!--                    </li>-->
+                        </ul>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!--            </div>-->
+            <!--            </t>-->
+        </template>
+
+
+    </data>
+</odoo>

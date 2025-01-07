@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- inherited template of quotation report -->
+        <template id="report_inherite_saleorder" inherit_id="ep_vente.report_inherite_saleorder">
+
+            <xpath expr="//div[@id='total']/div/table/tr" position="replace">
+                <t t-if="doc.amount_discount != 0">
+                    <tr class="border-black o_subtotal">
+                        <td>
+                            <strong>Montant Remise</strong>
+                        </td>
+                        <td class="text-end">
+                            <span t-field="doc.amount_discount"/>
+                        </td>
+                    </tr>
+                    <tr class="border-black o_subtotal">
+                        <td>
+                            <strong>Montant HT</strong>
+                        </td>
+                        <td class="text-end">
+                            <span t-field="doc.amount_untaxed"/>
+                        </td>
+                    </tr>
+                </t>
+                <t t-else="">
+                    <tr class="border-black o_subtotal" style="">
+                        <td>
+                            <strong>Montant HT</strong>
+                        </td>
+                        <td class="text-end">
+                            <span t-field="doc.amount_untaxed"/>
+                        </td>
+                    </tr>
+                </t>
+            </xpath>
+        </template>
+    </data>
+
+</odoo>

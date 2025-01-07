@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="paperformat_template" model="report.paperformat">
+			<field name="name">Template</field>
+			<field name="default" eval="True"/>
+			<field name="format">A4</field>
+			<field name="orientation">Portrait</field>
+			<field name="margin_top">2</field>
+			<field name="margin_bottom">2</field>
+			<field name="margin_left">3</field>
+			<field name="margin_right">3</field>
+		</record>
+
+		<report  
+		id="_id_bulletin_paie" 
+		string="Bulletin de paie"
+		model="hr.payslip"   
+		report_type="qweb-pdf"
+		name="oxy_paie.bulletin_de_paie"
+		paperformat="oxy_paie.paperformat_template"
+		/> 
+		
+		<template id="bulletin_de_paie">
+			<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="doc">
+				<div class="page" style="font-family:Calibri;">
+					<div width="100%" style="padding-bottom:10px;">
+						<table width="100%">
+							<tr width="100%">
+								<td width="65%" style="padding-bottom:30px;">
+									<b><span t-field="doc.company_id.name" style="font-family:Arial;font-size:28px"/></b>
+									<br/><br/>
+									<span t-field="doc.company_id.street" style="font-family:Arial;font-size:18px"/>
+									<span t-field="doc.company_id.street2" style="font-family:Arial;font-size:18px"/>
+									<span t-field="doc.company_id.city" style="font-family:Arial;font-size:18px"/>
+									<br/><br/>
+									<span style="font-family:Arial;font-size:18px">N° ADHERENT: </span>
+									<b>
+									<span t-field="doc.company_id.company_registry" style="font-family:Arial;font-size:18px"/></b>
+								</td>
+								<td width="35%">
+									<img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" alt="Logo" style="max-height: 180px;max-weight: 180px;align:right;padding-left:320px;"/><br/>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<table style="background-color:#610B0B;height:40px;padding-top:10px;" width="100%">
+						<tr>
+							<td style="color:#FFFFFF;font-family:Arial;font-size:26 px" width="30%">
+								<span t-if="doc.type_bulletin == 'normal'">BULLETIN DE PAIE</span>
+								<span t-if="doc.type_bulletin == 'stc'">STC</span>
+							</td>
+							<td style="color:#FFFFFF;font-family:Arial;font-size:25px" align="center" width="70%">
+								<span t-esc="doc.get_periode()"/>
+							</td>
+						</tr>
+					</table>
+
+				<table width="100%">
+					<tr width="100%" style="border-spacing:0 15px;">
+						<td width="14%">
+							MATRICULE: 
+						</td>
+						<td width="20%">
+							<span t-field="doc.employee_id.matricule"/>
+						</td>
+
+						<td width="10%">
+							NOM:
+						</td>
+						<td width="50%"  style="border:1px solid black;padding-top:5px;padding-bottom:5px">
+							<span t-field="doc.employee_id.complete_name"></span>
+						</td>
+						<td width="8%">
+						</td>
+					</tr>
+					<tr width="100%" style="border-spacing:0 15px;">
+						<table width="100%">
+							<tr width="100%">
+								<td width="14%">
+								</td>
+								<td width="20%">
+								</td>
+
+								<td width="10%">
+									SIT.FAMILIALE:
+								</td>
+								<td width="15%"  style="border:1px solid black;padding-top:5px;padding-bottom:5px">
+									<span t-field="doc.employee_id.marital"/>
+								</td>
+								<td width="43%">
+								</td>
+							</tr>
+						</table>
+					</tr>
+				</table>
+				<table width="100%">
+					<tr width="100%" style="border-spacing:15px;margin-top:5px;margin-bottom:5px" >
+						<td width="15%">
+							FONCTION : 
+						</td>
+						<td width="35%" style="border:1px solid black;padding-top:5px;padding-bottom:5px;margin-top:5px;margin-bottom:5px">
+							<span t-field="doc.employee_id.job_id.name"></span>
+						</td>
+						<td width="10%">
+							DATE ENT :
+						</td>
+						<td width="25%"  style="border:1px solid black;padding-top:5px;padding-bottom:5px">
+							<span t-field="doc.contract_id.date_start"/>
+						</td>
+						<td width="15%"/>
+					</tr>
+					<tr width="100%" style="border-spacing:15px;">
+						<td width="15%">
+							AFFECTATION : 
+						</td>
+						<td width="35%" style="border:1px solid black;padding-top:5px;padding-bottom:5px">
+							<span t-field="doc.employee_id.work_location"/>
+						</td>
+						<td width="10%">
+							N° SS :
+						</td>
+						<td width="25%"  style="border:1px solid black;padding-top:5px;padding-bottom:5px">
+							<span t-field="doc.employee_id.matricule_cnas"/>
+						</td>
+						<td width="15%"/>
+					</tr>
+				</table>
+				<table width="100%">
+					<tr width="100%" style="border-spacing:15px;">
+						<td width="15%">
+							N° COMPTE
+						</td>
+						<td width="15%" style="border:1px solid black;padding-top:5px;padding-bottom:5px">
+							<span t-field="doc.employee_id.compte"/>
+						</td>
+						<td width="70%">
+						</td>
+					</tr>
+				</table>
+
+				<table width="100%" class="table table-bordered" style="border-collapse: collapse;">
+					<tr>
+						<th width="10%" align="center" style="border : 1px solid black">CODE</th>
+						<th width="30%" align="center" style="border : 1px solid black">LIBELLE</th>
+						<th width="15%" align="center" style="border : 1px solid black">N/BASE</th>
+						<th width="15%" align="center" style="border : 1px solid black">TAUX</th>
+						<th width="15%" align="center" style="border : 1px solid black">GAIN</th>
+						<th width="15%" align="center" style="border : 1px solid black">RETENUE</th>
+					</tr>
+					<tr t-foreach="doc.details_by_salary_rule_category" t-as="rule">
+						<t t-if="rule.salary_rule_id.appears_on_payslip">
+							<td style="border-left:1px solid black;border-right:1px solid black"><span t-field="rule.code"/></td>
+							<td style="border-left:1px solid black;border-right:1px solid black"><span t-field="rule.name"/></td>
+							<td align="right" style="border-left:1px solid black;border-right:1px solid black"><span t-esc="doc.get_base(rule)" t-options='{"widget": "float", "precision": 2}'/></td>
+							<td align="right" style="border-left:1px solid black;border-right:1px solid black"><span t-esc="doc.get_taux(rule)"/></td>
+							<td align="right" style="border-left:1px solid black;border-right:1px solid black">
+								<t t-if="rule.salary_rule_id.type=='gain'"><span t-field="rule.total" t-options='{"widget": "float", "precision": 2}'/></t>
+							</td>
+							<td align="right" style="border-right:1px solid black">
+								<t t-if="rule.salary_rule_id.type=='retenu'"><span t-field="rule.total" t-options='{"widget": "float", "precision": 2}'/></t>
+							</td>
+						</t>
+					</tr>
+					<tr>
+						<td style="border:1px solid black"/>
+						<td colspan="3" align="right" style="border:1px solid black">TOTAL</td>
+						<td align="right" style="border:1px solid black" t-options='{"widget": "float", "precision": 2}'><b><span t-esc="doc.get_totals()[0]" t-options='{"widget": "float", "precision": 2}'/></b></td>
+						<td align="right" style="border:1px solid black" t-options='{"widget": "float", "precision": 2}'><b><span t-esc="doc.get_totals()[1]"  t-options='{"widget": "float", "precision": 2}'/></b></td>
+					</tr>
+				</table>
+				<table width="100%">
+					<tr>
+						<td width="70%" align="right" style="font-size:24px"><b>NET A PAYER</b></td>
+						<td style="border:1px black solid;font-size:24px;color:#ffffff" align="right"><b><span t-esc="doc.get_net()" style="background-color:#3c2754;" t-options='{"widget": "float", "precision": 2}'/></b></td>
+					</tr>
+				</table>
+				</div> 
+				<div class="footer text-center">
+				   <b><span>Page </span><span class="page" /> - <span class="topage" />  </b>  
+				</div>
+			</t>
+		</t>
+		</template>
+	</data>
+</odoo>

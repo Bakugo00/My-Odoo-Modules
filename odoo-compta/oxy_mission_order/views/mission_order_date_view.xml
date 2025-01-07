@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    	
+        <record id="mission_order_date_view_from" model="ir.ui.view">
+            <field name="name">mission.order.date.view.from</field>
+            <field name="model">ordre.mission.date</field>
+            <field name="arch" type="xml">
+                <form string="ordre mission">
+                    <group>
+                        <label for="demi_journee"/>
+                        <div>
+                            <field name='demi_journee' class="oe_inline"/>
+                            <field name='type_demi_journee' attrs="{'invisible' : [('demi_journee','=',False)], 'required' : [('demi_journee','=',True)]}" class="oe_inline"/>
+                        </div>
+                    	<field name='date_fin' attrs="{'invisible' : [('demi_journee','=',True)], 'required' : [('demi_journee','=',False)]}" class="oe_inline"/>
+                    </group>
+
+	                <footer>
+	                	<button name='termine' type='object' string='Valider' class="oe_highlight" confirm="Veuillez confirmer SVP"/>
+	                	or
+	                    <button string="Cancel" class="oe_link" special="cancel" />
+	                </footer>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record id="mission_order_date_action" model="ir.actions.act_window">
+            <field name="name">Date fin de la mission</field>
+            <field name="res_model">ordre.mission.date</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!-- employés -->
+
+        <record id="mission_order_employes_view_from" model="ir.ui.view">
+            <field name="name">mission.order.date.view.from</field>
+            <field name="model">ordre.mission.employees</field>
+            <field name="arch" type="xml">
+                <form string="ordre mission">
+                	<header>
+                		<button name='generer' type='object' string='Générer' class="oe_highlight" icon="fa-arrow-right"/>
+                	</header>
+                        <separator string="Employés" colspan="4"/>
+                        <newline/>
+                        <field name="employee_ids" nolabel="1"/>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record id="mission_order_employees_action" model="ir.actions.act_window">
+            <field name="name">Ordre de mission</field>
+            <field name="res_model">ordre.mission.employees</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+
+
+    </data>
+</odoo>
+

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t t-name="ep_chatter_search.Chatter.inherit" t-inherit="mail.Chatter" owl="1" t-inherit-mode="extension">
+
+
+        <xpath expr="//ChatterTopbar" position="replace">
+            <t t-if="!state.isSearchOpen">
+                <ChatterTopbar t-if="chatter.topbar" className="'o_Chatter_topbar'" record="chatter.topbar" />
+            </t>
+        </xpath>
+
+        <xpath expr="//t[@t-if='chatter.threadView']" position="replace">
+
+            <div t-if="state.isSearchOpen" class="o-mail-Chatter-search1">
+                            <br />
+                <div>
+                    <div class="d-flex justify-content-between align-items-center p-2 bg-light rounded">
+                        <div class="input-group">
+                            <div class="o_searchview form-control d-flex align-items-center py-2 px-3 bg-white rounded" role="search" aria-autocomplete="list">
+                                <div class="o_searchview_input_container d-flex flex-grow-1 flex-wrap gap-2">
+                                    <input type="text" class="o_searchview_input flex-grow-1 border-1" accesskey="Q" t-on-keyup="(ev) => this.onKeyupSearch(ev)" placeholder="Search" t-ref="autofocus" role="searchbox" style="border-color: purple;" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <button class="btn btn-outline-secondary ms-1" t-on-click="() => this.closeSearch()" aria-label="Close button">
+                            <i class="o_searchview_icon oi oi-close cursor-pointer" role="img" aria-label="Close search" title="close" style="transition: transform 0.5s ease; font-size: 24px;"/>
+                        </button>
+                    </div>
+                </div>
+                <div t-if="state.isSearchOpen">
+                    <ThreadView className="'o_Chatter_thread'" record="chatter.threadView" />
+                </div>
+
+
+            </div>
+            <t t-else="">
+                <t t-if="chatter.threadView">
+                <br/>
+                            <div class="dropdown user-dropdown" style="display: inline-block; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;" >
+                                <span style="font-weight: bold;" class="dropdown-text">Utilisateur : </span>
+                                <button type="button" class="btn btn-primary dropdown-toggle authorDropdown" t-on-click="() => this.onclickDropMenuAuthor()" data-bs-toggle="dropdown" style="text-transform: none;" >Tous les utilisateurs</button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#" t-on-click="() => this.filterMessagesByAuthorAndActivity('All','All' || state.lastSelectedActivity)" style="text-transform: none;">Tous les utilisateurs</a>
+
+                                    <t t-foreach="state.authors" t-as="author" t-key="author_index">
+                                        <a class="dropdown-item" href="#" t-on-click="() => this.filterMessagesByAuthorAndActivity(author.name,state.lastSelectedActivity)">
+                                            <t t-esc="author.name"/>
+                                        </a>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="dropdown activity-dropdown" style="display: inline-block; margin-left: 10px; margin-right: 10px;" >
+                                <span style="font-weight: bold;" class="dropdown-text">Activité : </span>
+
+                                <button type="button" class="btn btn-primary dropdown-toggle activityDropdown"  t-on-click="() => this.onclickDropMenuActivity()" data-bs-toggle="dropdown" style="text-transform: none;">Toutes les activités</button>
+
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#" t-on-click="() => this.filterMessagesByAuthorAndActivity(state.lastSelectedAuthor || 'All','All')" style="text-transform: none;" >Toutes les activités</a>
+                                    <t t-foreach="state.activity_types" t-as="activity" t-key="activity_index">
+                                        <a class="dropdown-item" href="#" t-on-click="() => this.filterMessagesByAuthorAndActivity(state.lastSelectedAuthor,activity)">
+                                            <t t-esc="activity"/>
+                                        </a>
+                                    </t>
+                                </div>
+                            </div>
+
+                    <ThreadView className="'o_Chatter_thread'" record="chatter.threadView" />
+                </t>
+            </t>
+        </xpath>
+         
+    </t>
+
+
+</templates>

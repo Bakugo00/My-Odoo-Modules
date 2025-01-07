@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="sale_order_search_inherit" model="ir.ui.view">
+            <field name="name">sale.order.search.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//filter[@name='sales']" position="after">
+
+                    <separator/>
+
+                    <filter string="Devis partagés" name="my_shared_quotations" domain="[('count_attendees', '!=', 1),('attendees_ids.user_id', '=', uid),('state','in',('draft', 'sent'))]"/>
+                    <filter string="Bons de commandes partagés" name="my_shared_sales" domain="[('count_attendees', '!=', 1),('attendees_ids.user_id', '=', uid),('state','in',('sale','done'))]"/>
+
+                    <separator/>
+
+                    <filter string="Aujourd'hui" name="today"
+                            domain="[('date_order','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0))),
+                                    ('date_order','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]"/>
+
+                    <filter string="Cette semaine" name="current_week"
+                            domain="['&amp;',('date_order', '&gt;=', (context_today() + relativedelta(weeks=-1,days=1,weekday=0)).strftime('%Y-%m-%d')),
+                            ('date_order', '&lt;=', (context_today() + relativedelta(weekday=6)).strftime('%Y-%m-%d'))]"/>
+
+                    <filter string="Ce mois" name="current_month"
+                            domain="[('date_order','&lt;=',(datetime.date.today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('date_order','&gt;=',(datetime.date.today()-relativedelta(day=1)).strftime('%Y-%m-%d'))]"/>
+
+                    <filter string="Cette année" name="current_year"
+                            domain="[('date_order','&lt;=', context_today().strftime('%%Y-12-31')),
+                            ('date_order','&gt;=',context_today().strftime('%%Y-01-01'))]"/>
+
+                    <separator/>
+                </xpath>
+
+            </field>
+        </record>
+
+<!--        <record id="action_quotations_with_onboarding_2" model="ir.actions.act_window">-->
+<!--            <field name="name">Quotations p</field>-->
+<!--            <field name="type">ir.actions.act_window</field>-->
+<!--            <field name="res_model">sale.order</field>-->
+<!--            <field name="view_id" ref="sale.view_quotation_tree_with_onboarding"/>-->
+<!--            <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>-->
+<!--            <field name="search_view_id" ref="sale.sale_order_view_search_inherit_quotation"/>-->
+<!--            <field name="context">{'search_default_my_quotation': 1}</field>-->
+<!--            <field name="domain">[('order_line.user_id', '=', uid)]</field>-->
+<!--            <field name="help" type="html">-->
+<!--                <p class="o_view_nocontent_smiling_face">-->
+<!--                    Create a new quotation, the first step of a new sale!-->
+<!--                </p><p>-->
+<!--                Once the quotation is confirmed by the customer, it becomes a sales order.<br/> You will be able to create an invoice and collect the payment.-->
+<!--            </p>-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--        <menuitem id="menu_sale_quotations_2"-->
+<!--                  action="action_quotations_with_onboarding_2"-->
+<!--                  parent="sale.sale_order_menu"-->
+<!--                  sequence="1" groups="sales_team.group_sale_salesman"/>-->
+
+
+    </data>
+</odoo>

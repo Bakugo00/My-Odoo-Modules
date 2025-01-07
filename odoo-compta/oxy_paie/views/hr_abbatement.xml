@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="cotisation_view_tree" model="ir.ui.view">
+			<field name="name">Abattement</field>
+			<field name="model">hr.abattement</field>
+			<field name="arch" type="xml">
+				<tree string='Abattement' editable="bottom">
+					<field name="name" required="1"/>
+					<field name="taux" required="1"/>
+					<field name="code" required="1"/>
+				</tree>
+			</field>
+
+		</record>
+
+		<record id="action_payroll_abattements" model="ir.actions.act_window">
+			<field name="name">Abattement</field>
+			<field name="res_model">hr.abattement</field>
+			<field name="view_mode">tree</field>
+			<field name="domain">[]</field>
+			<field name="context">{}</field>
+		</record>
+
+		<menuitem 
+			name="Abattements"
+			id="menu_payroll_abattements"
+			parent="hr.menu_human_resources_configuration"
+			groups="hr.group_hr_user"
+			action="action_payroll_abattements"
+			/>
+	</data>
+</odoo>

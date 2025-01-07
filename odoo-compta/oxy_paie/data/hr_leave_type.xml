@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+
+        <record model="hr.leave.type" id="holiday_status_accident">
+            <field name="name">Accident de travail</field>
+            <field name="allocation_type">no</field>
+            <field name="color_name">lavender</field>
+            <field name="absence_type" ref='oxy_paie.abs_accident_de_travail'/>
+        </record>
+
+        <record model="hr.leave.type" id="holiday_status_maternite">
+            <field name="name">CONGE MATERNITE</field>
+            <field name="allocation_type">no</field>
+            <field name="color_name">brown</field>
+            <field name="absence_type" ref='oxy_paie.abs_conge_de_maternite'/>
+        </record>
+
+        <record model="hr.leave.type" id="holiday_status_detente">
+            <field name="name">CONGE DE DETENTE</field>
+            <field name="allocation_type">fixed_allocation</field>
+            <field name="color_name">brown</field>
+            <field name="leave_validation_type">both</field>
+            <field name="responsible_id" ref="base.user_admin"/>
+            <field name="absence_type" ref='oxy_paie.abs_conge_de_detente'/>
+        </record>
+
+        <record model="hr.leave.type" id="holiday_status_maladie">
+            <field name="name">CONGE DE MALADIE</field>
+            <field name="allocation_type">no</field>
+            <field name="color_name">brown</field>
+            <field name="absence_type" ref='oxy_paie.abs_conge_maladie'/>
+        </record>
+
+		<!--delete id="hr_holidays.holiday_status_comp" model="hr.leave.type"/>
+		<delete id="hr_holidays.holiday_status_cl" model="hr.leave.type"/>
+		<delete id="hr_holidays.holiday_status_unpaid" model="hr.leave.type"/>
+		<delete id="hr_holidays.holiday_status_sl" model="hr.leave.type"/>
+		<delete id="hr_holidays.hr_holiday_status_dv" model="hr.leave.type"/-->
+	</data>
+</odoo>

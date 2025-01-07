@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="activity_result_form" model="ir.ui.view">
+            <field name="name">activity.result.form</field>
+            <field name="model">activity.result</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="active" invisible="1"/>
+                            <field name="categ_id" required="1" options="{'no_open': True,'no_quick_create':True,'no_create_edit': True,'no_create': True}"/>
+<!--                            attrs="{'invisible': [('categ_id', '!=', False)]}"
+ <field name="type_ids" widget="many2many_checkboxes"/>-->
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="activity_result_list" model="ir.ui.view">
+            <field name="name">Résultats d'activités</field>
+            <field name="model">activity.result</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="categ_id"/>
+<!--                    <field name="type_ids" widget="many2many_tags"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <record id="activity_result_action_2" model="ir.actions.act_window">
+            <field name="name">Résultats d'activités</field>
+            <field name="res_model">activity.result</field>
+            <field name="view_mode">tree,form,kanban</field>
+<!--            <field name="context">{"create": False, "edit": False, "delete":False}</field>-->
+        </record>
+
+        <menuitem
+                id="menu_activity_result"
+                action="activity_result_action_2"
+                parent="mail.mail_menu_technical"
+                sequence="13"
+        />
+
+    </data>
+</odoo>

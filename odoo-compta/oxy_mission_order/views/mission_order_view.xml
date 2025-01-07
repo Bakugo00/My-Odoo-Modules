@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <odoo>
+	<data>
+
+		<!-- TREE VIEW -->
+		<record id="mission_order_tree_view" model="ir.ui.view">
+			<field name="name">Ordre de mission</field>
+			<field name="model">hr.mission.order</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name"/>
+					<field name="employe_id"/>
+					<field name="partner_id"/>
+					<field name="mission_id"/>
+					<field name="start_date"/>
+					<field name="end_date"/>
+					<field name="duration"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- FROM VIEW -->
+		<record id="mission_order_form_view" model="ir.ui.view">
+			<field name="name">Ordre de mission</field>
+			<field name="model">hr.mission.order</field>
+			<field name="arch" type="xml">
+				<form>
+					<header>
+						<button name="action_valider" icon="fa-check" type="object" string="Valider" states="brouillon" class="oe_highlight"/>
+						<!--button name="action_annuler" type="object" icon="fa-remove" string="Annuler" states="brouillon" class="oe_highlight"/-->
+						<field name="state" widget="statusbar" statusbar_visible="brouillon,valide" />
+					</header>
+
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<field name="name" readonly="1"/>
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="employe_id" attrs="{'readonly' : [('state','!=','brouillon')]}"/>
+								<field name="partner_id" attrs="{'readonly' : [('state','!=','brouillon')]}"/>
+								
+							</group>
+							<group>
+								<field name="mission_id" attrs="{'readonly' : [('state','!=','brouillon')]}"/>
+								<field name="moyen_trans"/>			
+							</group>
+						</group>
+						<group/>
+						<hr/>
+						<group>
+							<group string="Durée de la mission">
+								<label for="start_date"/>
+								<div class="o_row o_row_readonly">
+									<field name="start_date" attrs="{'readonly' : [('state','!=','brouillon')]}" class="oe_inline" />
+									<field name="type_demi_journee" attrs="{'invisible':[('retour_type','!=','demi_journee')],'readonly' : [('state','!=','brouillon')],'required':[('retour_type','=','demi_journee')]}" options="{'horizontal': True}" class="oe_inline" />
+								</div>
+								<separator/>
+								<div attrs="{'invisible' : [('state','=','termine')]}">
+									<field name="retour_type" widget='radio' attrs="{'readonly' : [('state','!=','brouillon')]}"/>
+								</div>
+								<field name="end_date" attrs="{'invisible':[('retour_type','!=','date')],'readonly' : [('state','!=','brouillon')],'required':[('retour_type','=','date')]}"/>
+								<label for="duration" attrs="{'invisible' : [('retour_type','not in',('date','demi_journee'))]}" /> 
+								<div attrs="{'readonly' : [('state','!=','brouillon')],'invisible' : [('retour_type','not in',('date','demi_journee'))]}">	
+									<field name="duration" class="oe_inline"/>
+								</div>
+								<field name="heure_entre" invisible="1"/>
+								<field name="heure_sortie" invisible="1"/>
+							</group>
+							<group string="Lieu de la mission">
+								<field name="country_id" attrs="{'readonly' : [('state','!=','brouillon')]}"/>
+								<field name="state_id" domain="[('country_id','=',country_id)]" attrs="{'readonly' : [('state','!=','brouillon')]}"/>
+								<field name="adresse" attrs="{'readonly' : [('state','!=','brouillon')]}"/>
+							</group>
+						</group>
+						<field name="description" class="oe_inline" placeholder="Notes Supplémentaires..." />
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- RECHERCHE -->
+		<record id="mission_order_form_search" model="ir.ui.view">
+			<field name="name">Ordre de mission</field>
+			<field name="model">hr.mission.order</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search>
+					<field name="employe_id" string="Employé"/>
+					<field name="mission_id" string="Objet de mission"/>
+					<field name="start_date" string="Date de début"/>
+					<field name="end_date" string="Date de fin"/>
+					<newline />
+					<group expand="0" string="Group by...">
+						<filter name="emp_filter" string="Employé" context="{'group_by':'employe_id'}" />
+						<filter name="objm_filter" string="Objet de mission" context="{'group_by':'mission_id'}" />
+						<filter name="date_filter" string="Date" context="{'group_by':'start_date:month'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<!-- ACTION -->
+		<record id="mission_order_action" model="ir.actions.act_window">
+			<field name="name">Ordre de mission</field>
+			<field name="res_model">hr.mission.order</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="mission_order_form_search"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Créer votre première ordre de mission</p>
+			</field>
+		</record>
+
+		<!-- TREE VIEW -->
+		<record id="mission_order_lot_tree_view" model="ir.ui.view">
+			<field name="name">Ordre de mission</field>
+			<field name="model">hr.mission.order.lot</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name"/>
+					<field name="mission_id"/>
+					<field name="start_date"/>
+					<field name="end_date"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- FROM VIEW -->
+		<record id="mission_order_lot_form_view" model="ir.ui.view">
+			<field name="name">Ordre de mission</field>
+			<field name="model">hr.mission.order.lot</field>
+			<field name="arch" type="xml">
+				<form>
+					<header>
+						<button name="%(mission_order_employees_action)d" icon="fa-bars" type="action" string="Générer ordre de missions" states="brouillon"/>
+						<button name="action_valider" icon="fa-check" type="object" string="Valider" states="brouillon"/>
+						<field name="state" widget="statusbar" statusbar_visible="brouillon,valide" />
+					</header>                   
+					<sheet>
+					<label for="name" class="oe_edit_only"/>
+						<h1>
+							<field name="name" required='1'  attrs="{'readonly' : [('state','!=','brouillon')]}" class="oe_inline"/>
+						</h1>
+						<group/>
+						<hr/>
+						<group col='4' colspan="4">
+							<group col='2' colspan="2">
+								<field name="mission_id" class="oe_inline" attrs="{'readonly' : [('state','!=','brouillon')]}" required='1'/>
+							</group>
+						</group>
+						<group/>
+						<hr/>
+						<group col='4' colspan="4">
+							<group string="Durée de la mission" col='2' colspan="2">
+								<label for="start_date"/>
+								<div class="o_row o_row_readonly">
+									<field name="start_date" attrs="{'readonly' : [('state','!=','brouillon')]}" class="oe_inline" required="1"/>
+									<field name="type_demi_journee" attrs="{'invisible':[('retour_type','!=','demi_journee')],'readonly' : [('state','!=','brouillon')],'required':[('retour_type','=','demi_journee')]}" options="{'horizontal': True}" class="oe_inline" />
+								</div>
+								<separator/>
+								<div attrs="{'invisible' : [('state','=','termine')]}">
+									<field name="retour_type" widget='radio' attrs="{'readonly' : [('state','!=','brouillon')]}"/>
+								</div>
+								<field name="end_date"  attrs="{'invisible':[('retour_type','!=','date')],'readonly' : [('state','!=','brouillon')],'required':[('retour_type','=','date')]}" />
+
+							</group>
+							<group string="Lieu de la mission" col='2' colspan="2">
+								<field name="country_id" attrs="{'readonly' : [('state','!=','brouillon')]}"/>
+								<field name="state_id" domain="[('country_id','=',country_id)]" attrs="{'readonly' : [('state','!=','brouillon')]}"/>
+								<field name="adresse" attrs="{'readonly' : [('state','!=','brouillon')]}"/>
+							</group>
+						</group>
+						<group/>
+						<br/>
+
+						<notebook>
+							<page string="Ordre de missions">
+								<field name='mission_order_ids'/>
+							</page>
+						</notebook>
+						<hr/>
+						<div class="oe_inline">
+							<label for="description" class="oe_edit_only"/>
+						</div>
+						<field name="description" class="oe_inline" placeholder="Notes Supplémentaires..." />
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- RECHERCHE -->
+		<record id="mission_order_lot_form_search" model="ir.ui.view">
+			<field name="name">Ordre de mission</field>
+			<field name="model">hr.mission.order.lot</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search>
+					<field name="mission_id" string="Objet de mission"/>
+					<field name="start_date" string="Date de début"/>
+					<field name="end_date" string="Date de fin"/>
+					<newline />
+					<group expand="0" string="Group by...">
+						<filter name="objm_filter_1" string="Objet de mission" context="{'group_by':'mission_id'}" />
+						<filter name="date_filter_1" string="Date" context="{'group_by':'start_date:month'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<!-- ACTION -->
+		<record id="mission_order_lot_action" model="ir.actions.act_window">
+			<field name="name">Ordre de mission par lot</field>
+			<field name="res_model">hr.mission.order.lot</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="mission_order_lot_form_search"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Créer votre première ordre de mission par lot</p>
+			</field>
+		</record>
+
+		<!-- MENU -->
+		<menuitem id="order_mission_menus" name="Ordre de mission" sequence="11"
+				parent="hr.menu_hr_root" groups="ep_rh.group_employee_manager_n"/>
+		<menuitem id="order_mission_menu" name="Ordre de mission" sequence="1"
+				parent="order_mission_menus" action="mission_order_action"/>
+		<menuitem id="order_mission_lot_menu" name="Ordre de mission par lot" sequence="3"
+				parent="order_mission_menus" action="mission_order_lot_action"/>
+	</data>
+</odoo>

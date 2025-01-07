@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="contact_activity_report_view_graph" model="ir.ui.view">
+            <field name="name">contact.activity.report.graph</field>
+            <field name="model">contact.activity.report</field>
+            <field name="arch" type="xml">
+                <graph string="Activities Analysis" sample="1">
+                    <field name="activity_type_id"/>
+                    <field name="date_deadline" interval="month"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="contact_activity_report_view_pivot" model="ir.ui.view">
+            <field name="name">contact.activity.report.pivot</field>
+            <field name="model">contact.activity.report</field>
+            <field name="arch" type="xml">
+                <pivot string="Activities Analysis" sample="1">
+                    <field name="activity_type_id" type="col"/>
+                    <field name="date_deadline" interval="month" type="row"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="contact_activity_report_view_tree" model="ir.ui.view">
+            <field name="name">contact.activity.report.tree</field>
+            <field name="model">contact.activity.report</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="res_name" string="Nom du Document"/>
+                    <field name="contact_id"/>
+                    <field name="activity_type_id"/>
+                    <field name="summary"/>
+                    <field name="date_deadline"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="contact_activity_report_view_search" model="ir.ui.view">
+            <field name="name">contact.activity.report.search</field>
+            <field name="model">contact.activity.report</field>
+            <field name="arch" type="xml">
+                <search string="Activities Analysis">
+                    <field name="activity_type_id" string="Activity Type"/>
+                    <field name="contact_id" string="Contact"/>
+                    <field name="res_name" string="Nom du Document"/>
+                    <field name="summary" string="Summary"/>
+                    <field name="user_id" string="Attribué à"/>
+                    <field name="note" string="Note"/>
+                    <field name="sources" string="Sources"/>
+                    <separator/>
+                    <filter name="filter_date" date="date_deadline"/>
+                    <separator/>
+                    <group expand="1" string="Group By">
+                        <filter string="Activités" name="group_by_activity_type" context="{'group_by': 'activity_type_id'}"/>
+                        <filter string="Contact" name="group_by_contact" context="{'group_by': 'contact_id'}"/>
+                        <filter string="Attribué à" name="group_by_user" context="{'group_by': 'user_id'}"/>
+                        <filter string="Nom du Document" name="group_by_document_name" context="{'group_by': 'res_name'}"/>
+                        
+                        <filter string="Date de l'evenement" name="group_by_date_de_levenemnt" context="{'group_by': 'date_deadline:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+       <record id="contact_activity_report_action" model="ir.actions.act_window">
+           <field name="name">Activités Contact</field>
+           <field name="res_model">contact.activity.report</field>
+           <field name="view_mode">graph,tree,pivot</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No data yet!
+                </p><p>
+                    Start scheduling activities
+                </p>
+            </field>
+       </record>
+
+
+        <menuitem
+                id="parent_activity_report_menu"
+                name="Activities"
+                parent="crm.crm_menu_report"
+                sequence="4"
+        />
+
+    
+        <menuitem
+                id="contact_activity_report_menu2"
+                action="contact_activity_report_action"
+                parent="parent_activity_report_menu"
+                sequence="6"
+        />
+
+       <menuitem id="crm.crm_activity_report_menu" name="Activités CRM" parent="parent_activity_report_menu" />
+
+
+        </data>
+</odoo>

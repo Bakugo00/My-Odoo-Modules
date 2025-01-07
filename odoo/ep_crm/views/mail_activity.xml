@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="mail_activity_form_inherit_crm_popup" model="ir.ui.view">
+            <field name="name">mail.activity.form.popup.inherit.add.manager_role</field>
+            <field name="model">mail.activity</field>
+            <field name="inherit_id" ref="mail.mail_activity_view_form_popup"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_done']" position="attributes">
+                    <attribute name="groups">ep_crm.group_contacts_manager_n</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+         <record id="mail_activity_form_inherit_crm_form" model="ir.ui.view">
+            <field name="name">mail.activity.form.inherit.add.manager_role</field>
+            <field name="model">mail.activity</field>
+            <field name="inherit_id" ref="mail.mail_activity_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_done']" position="attributes">
+                    <attribute name="groups">ep_crm.group_contacts_manager_n</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

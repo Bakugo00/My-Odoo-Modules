@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_cnas">
+        <t t-call="web.basic_layout">
+            <div class="page" style="font-family:Calibri;">
+                <table width="100%">
+                    <tr>
+                        <td width="45%" style="border-top:1px solid; border-left:1px solid; border-right:1px solid; border-bottom:0px;padding-left:5px">
+                            <b>SECURITE SOCIAL</b>
+                        </td> 
+                        <td width="10%" style="border:0px;"></td>
+                        <td width="45%" class="text-center" style="border-top:1px solid; border-left:1px solid; border-right:1px solid; border-bottom:0px;padding-left:5px">
+                            <b>DESTINATAIRE</b>
+                        </td> 
+                    </tr> 
+                    <tr>
+                        <td width="45%" style="border-bottom:1px solid; border-left:1px solid; border-right:1px solid; border-top:0px;padding-top:10px;padding-bottom:2px;padding-left:5px" class="text-center">
+                            <p>La Caisse Nationale des Assurances Sociales des <br/>Travailleurs Salariés</p>
+                        </td>
+                        <td width="10%" style="border:0px;"></td>
+                        <td width="45%" style="border-bottom:1px solid; border-left:1px solid; border-right:1px solid; border-top:0px;padding-top:10px;padding-bottom:2px;padding-left:5px">
+                            <span t-esc="data['form']['company_id'][1] or '_'"/>
+                            <span t-esc="get_information(data['form']['company_id']).lieu_declaration_cnas or '_'"/>
+                        </td>                                         
+                    </tr>
+                </table>
+                <t t-set="month" t-value="data['form']['month']"/>
+                <t t-set="month_to" t-value="data['form']['month_to']"/>
+                <t t-set="type_cotisation" t-value="data['form']['type_cotisation']"/>
+                <t t-set="cotisation_label" t-value="data['form']['cotisation_label']"/>
+                <table width="100%" style="padding-top:10px;margin-top:10px;font-size:11px" class="table">
+                    <tr>
+                        <td width="15%" style="border : 1px solid; padding-left:5px" class="text-center">
+                            <b>CODE AGENCE</b>
+                        </td> 
+                        <td width="15%" style="border : 1px solid; padding-left:5px" class="text-center">
+                            <b>DATE DE RECEPTION</b>
+                        </td> 
+                        <td width="15%" style="border : 1px solid; padding-left:5px" class="text-center">
+                            <b>PERIODE DE COTISATION</b>
+                        </td> 
+                        <td width="10%" style="border:0px;"></td>
+                        <td width="30%" class="text-center" style="border:1px solid;padding-left:5px">
+                            <b>NUMERO COTISANT</b>
+                        </td> 
+                        <td width="15%" class="text-center" style="border:1px solid;padding-left:5px">
+                            <b>CLASSE COTISANT</b>
+                        </td> 
+                    </tr> 
+                    <tr>
+                        <td width="15%" style="border : 1px solid; padding-left:5px">
+                            <b></b>
+                        </td> 
+                        <td width="15%" style="border : 1px solid; padding-left:5px">
+                            <span t-esc="get_date()"/>
+                        </td> 
+                        <td width="15%" style="border : 1px solid; padding-left:5px">
+                            <span t-esc="get_period(type_cotisation, month, cotisation_label)"/>
+                        </td> 
+                        <td width="10%" style="border:0px;"></td>
+                        <td width="30%" class="text-center" style="border:1px solid;padding-left:5px">
+                            <span t-esc="get_information(data['form']['company_id']).num_cotisant or '_'"/>
+                        </td> 
+                        <td width="15%" class="text-center" style="border:1px solid;padding-left:5px">
+                            <b></b>
+                        </td> 
+                    </tr> 
+                </table>
+                <t t-set="total" t-value="0"/>
+                <table width="100%" style="margin-top:10px" >
+                    <tr>
+                        <td class="text-center" style="border:0px;padding-top:5px;padding-bottom:10px" colspan="8">
+                            <b>DECLARATION DE COTISATIONS</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid;font-size:10px;padding-top:5px;padding-bottom:10px" class="text-center">
+                            CODE
+                        </td>
+                        <td style="border:1px solid;font-size:10px;padding-top:5px;padding-bottom:10px" class="text-center">
+                            NATURE DE COTISATION
+                        </td>
+                        <td style="border:1px solid;font-size:10px;padding-top:5px;padding-bottom:10px" class="text-center" colspan="3">
+                            DECOMPTE DES COTISATIONS
+                        </td>
+                        <td style="border:1px solid;font-size:10px;padding-top:5px;padding-bottom:10px" class="text-center" colspan="2">
+                            MOUVEMENT DU PERSONNEL(*)
+                        </td>
+                        <td style="border:1px solid;font-size:10px;padding-top:5px;padding-bottom:10px" class="text-center">
+                            EFFECTIF TOTAL EN EXCERCICE
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid;font-size:11px;padding-top:5px;padding-bottom:10px" width='10%'></td>
+                        <td style="border:1px solid;font-size:11px;padding-top:5px;padding-bottom:10px" width='20%'></td>
+                        <td style="border:1px solid;font-size:11px;padding-top:5px;padding-bottom:10px;padding-left:10px" width='16%' class="text-center">
+                            ASSIETTE
+                        </td>
+                        <td style="border:1px solid;font-size:11px;padding-top:5px;padding-bottom:10px;padding-left:10px" width='8%' class="text-center">
+                            TAUX
+                        </td>
+                        <td style="border:1px solid;font-size:11px;padding-top:5px;padding-bottom:10px;padding-left:10px" width='16%' class="text-center">
+                            MONTANT
+                        </td>
+                        <td style="border:1px solid;font-size:11px;padding-top:5px;padding-bottom:10px;padding-left:10px" width='8%' class="text-center">
+                            ENTREE
+                        </td>
+                        <td style="border:1px solid;font-size:11px;padding-top:5px;padding-bottom:10px;padding-left:10px" width='8%' class="text-center">
+                            SORTIE
+                        </td>
+                        <td style="border:1px solid;font-size:11px;padding-top:5px;padding-bottom:10px;padding-left:10px" width='14%' class="text-center"></td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid;font-size:11px;border-bottom:0px;padding-top:5px;padding-bottom:10px;padding-left:10px" class="text-center">R22</td>
+                        <td style="border:1px solid;font-size:11px;border-bottom:0px;padding-top:5px;padding-bottom:10px;padding-left:10px">REGIME GENERAL</td>
+                        <td style="border:1px solid;font-size:11px;border-bottom:0px" class="text-center">
+                            <!--<span t-esc="'{0:,.2f}'.format(float(assiette_un(data['form']['affectation'],date_from,date_to))).replace(',',' ')"/>-->
+                            <span t-esc="get_assiette(month,month_to,type_cotisation,0)" t-options='{"widget": "float", "precision": 2}'/>
+                        </td>
+                        <td style="border:1px solid;font-size:11px;border-bottom:0px;padding-top:5px;padding-bottom:10px" class="text-center">
+                            34.50%
+                        </td>
+                        <td style="border:1px solid;font-size:11px;border-bottom:0px;padding-top:5px;padding-bottom:10px" class="text-center">
+                            <!--<span t-esc="'{0:,.2f}'.format(float(get_payslip_lines_cot(data['form']['affectation'],date_from,date_to))).replace(',',' ')"/>-->
+                            <span t-esc="get_amount(month,month_to,type_cotisation,0,34.5)" t-options='{"widget": "float", "precision": 2}'/>
+                            <t t-set="total" t-value="total+get_amount(month,month_to,type_cotisation,0,34.5)"/>
+                        </td>
+                        <td style="border:1px solid;font-size:13px;padding-top:5px;padding-bottom:10px" rowspan="4" class="text-center">
+                            <!--<span t-esc="emp_entree(data['form']['affectation'],data['form']['date_from'],data['form']['date_to']) or '0'"/>-->
+                            <span t-esc="emp_entree(month,month_to,type_cotisation) or '0'"/>
+                        </td>
+                        <td style="border:1px solid;font-size:13px;padding-top:5px;padding-bottom:10px" rowspan="4" class="text-center">
+                            <!--<span t-esc="emp_sortie(data['form']['affectation'],data['form']['date_from'],data['form']['date_to']) or '0'"/>-->
+                            <span t-esc="emp_sortie(month,month_to,type_cotisation) or '0'"/>
+                        </td>
+                        <td style="border:1px solid;font-size:13px;padding-top:5px;padding-bottom:10px" rowspan="4" class="text-center">
+                            <!--<span t-esc="effectif_total(data['form']['affectation'],data['form']['date_to']) or '0'"/>-->
+                            <span t-esc="effectif_total(month,month_to,type_cotisation) or '0'"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid;font-size:11px;border-top:0px;padding-top:5px;padding-bottom:10px;padding-left:10px;border-bottom:0px;border-top:0px" class="text-center">R22</td>
+                        <td style="border:1px solid;font-size:11px;border-top:0px;padding-top:5px;padding-bottom:10px;padding-left:10px;border-bottom:0px;border-top:0px" >REGIME GENERAL</td>
+                        <td style="border:1px solid;font-size:11px;border-top:0px;padding-top:5px;padding-bottom:10px;border-bottom:0px;border-top:0px" class="text-center">
+                            <!--<span t-esc="'{0:,.2f}'.format(float(assiette_deux(data['form']['affectation'],date_from,date_to))).replace(',',' ')"/>-->
+                            <span t-esc="get_assiette(month,month_to,type_cotisation,10)" t-options='{"widget": "float", "precision": 2}'/>
+                        </td>
+                        <td style="border:1px solid;font-size:11px;border-top:0px;padding-top:5px;padding-bottom:10px;border-bottom:0px;border-top:0px" class="text-center">
+                            24.50%
+                        </td>
+                        <td style="border:1px solid;font-size:11px;border-top:0px;padding-top:5px;padding-bottom:10px;border-bottom:0px;border-top:0px" class="text-center">
+                            <!--<span t-esc="'{0:,.2f}'.format(float(get_payslip_lines_cota(data['form']['affectation'],date_from,date_to))).replace(',',' ')"/>-->
+                            <span t-esc="get_amount(month,month_to,date_to,10,24.5)" t-options='{"widget": "float", "precision": 2}'/>
+                            <t t-set="total" t-value="total+get_amount(month,month_to,date_to,10,24.5)"/>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid;font-size:11px;padding-top:5px;padding-bottom:10px;padding-left:10px;border-bottom:0px;border-top:0px" class="text-center"> R22</td>
+                        <td style="border:1px solid;font-size:11px;padding-top:5px;padding-bottom:10px;padding-left:10px;border-bottom:0px;border-top:0px" >REGIME GENERAL</td>
+                        <td style="border:1px solid;font-size:11px;padding-top:5px;padding-bottom:10px;border-bottom:0px;border-top:0px" class="text-center">
+                            <!--<span t-esc="'{0:,.2f}'.format(float(assiette_trois(data['form']['affectation'],date_from,date_to))).replace(',',' ')"/>-->
+                            <span t-esc="get_assiette(month,month_to,type_cotisation,20)" t-options='{"widget": "float", "precision": 2}'/>
+                        </td>
+                        <td style="border:1px solid;font-size:11px;padding-top:5px;padding-bottom:10px;border-bottom:0px;border-top:0px" class="text-center">
+                            14.50%
+                        </td>
+                        <td style="border:1px solid;font-size:11px;padding-top:5px;padding-bottom:10px;border-bottom:0px;border-top:0px" class="text-center">
+                            <!--<span t-esc="'{0:,.2f}'.format(float(get_payslip_lines_cottrois(data['form']['affectation'],date_from,date_to))).replace(',',' ')"/>-->
+                            <span t-esc="get_amount(month,month_to,type_cotisation,20,14.5)" t-options='{"widget": "float", "precision": 2}'/>
+                            <t t-set="total" t-value="total+get_amount(month,month_to,type_cotisation,20,14.5)"/>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid;font-size:11px;padding-top:5px;padding-bottom:10px;padding-left:10px;border-top:0px" class="text-center">R98</td>
+                        <td style="border:1px solid;font-size:11px;padding-top:5px;padding-bottom:10px;padding-left:10px;border-top:0px">NFPOS REGIME GENERAL</td>
+                        <td style="border:1px solid;font-size:11px;padding-top:5px;padding-bottom:10px;border-top:0px"  class="text-center">
+                            <!--<span t-esc="'{0:,.2f}'.format(float(assiette_quatre(data['form']['affectation'],date_from,date_to))).replace(',',' ')"/>-->
+                            <span t-esc="get_assiette_globale(month,month_to,type_cotisation)" t-options='{"widget": "float", "precision": 2}'/>
+                        </td>
+                        <td style="border:1px solid;font-size:11px;padding-top:5px;padding-bottom:10px;border-top:0px"  class="text-center">
+                            0.50%
+                        </td>
+                        <td style="border:1px solid;font-size:11px;padding-top:5px;padding-bottom:10px;border-top:0px"  class="text-center">
+                            <span t-esc="get_amount_globale(month,month_to,type_cotisation)" t-options='{"widget": "float", "precision": 2}'/>
+                            <t t-set="total" t-value="total+get_amount_globale(month,month_to,type_cotisation)"/>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border:0px;" colspan="2"></td>
+                        <td style="border:1px solid; font-size:12px" colspan="2" class="text-center">
+                            TOTAL DES COTISATIONS
+                        </td>
+                        <td style="border:1px solid; font-size:12px;background-color:#a9abb0" class="text-center">
+                            <b><span t-esc="total" t-options="{'widget' : 'monetary','display_currency' : get_currency(data['form']['company_id'])}"/></b>
+                        </td>
+                        <td style="border:0px;" colspan="3"></td>
+                    </tr>
+                </table>
+                <br/><br/>
+                <p style="font-size:11px">(*) ENTREE : Nombre de travailleurs embauchés durant la période de cotisation</p>
+                <p style="font-size:11px">SORTIE : Nombre de travailleurs débauchés durant la période de cotisation</p>
+                <p style="font-size:11px">EFFECTIF TOTAL : Nombre de travailleurs en exercice à la fin de la période de cotisation</p>
+
+                <table width="100%" style="margin-top:10px" >
+                    <tr>
+                        <td class="text-center" style="border:1px solid;padding-top:5px;padding-bottom:10px" colspan="5">
+                            <b>BORDEREAU DE VERSEMENT DES COTISATIONS</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid;padding-top:5px;padding-bottom:10px;padding-left:10px">JOURNEE</td>
+                        <td style="border:1px solid;padding-top:5px;padding-bottom:10px;padding-left:10px">CANAL</td>
+                        <td style="border:1px solid;padding-top:5px;padding-bottom:10px;padding-left:10px">PERIODE</td>
+                        <td style="border:1px solid;padding-top:5px;padding-bottom:10px;padding-left:10px">Montant versé a déduire</td>
+                        <td style="border:1px solid;padding-top:5px;padding-bottom:10px;padding-left:10px"></td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid;padding-top:5px;padding-bottom:10px;padding-left:10px"></td>
+                        <td style="border:1px solid;padding-top:5px;padding-bottom:10px;padding-left:10px"></td>
+                        <td style="border:1px solid;padding-top:5px;padding-bottom:10px;padding-left:10px">
+                            <span t-esc="get_period(type_cotisation, month, cotisation_label)"/>
+                        </td>
+                        <td style="border:1px solid;padding-top:5px;padding-bottom:10px;padding-left:10px">Montant du versement</td>
+                        <td style="border:1px solid;padding-top:5px;padding-bottom:10px;padding-left:10px;padding-right:10px" width="20%" class="text-right">
+                            <span t-esc="total" t-options="{'widget' : 'monetary','display_currency' : get_currency(data['form']['company_id'])}"/>
+                        </td>
+                    </tr>
+                </table>
+                <table width="100%">
+                    <tr>
+                        <td style="border:1px solid;border-bottom:0px;" width="38%" class="text-center">
+                            <b>IDENTIFICATION COTISANT</b>
+                        </td>
+                        <td style="border:1px solid;border-bottom:0px;border-right:0px;font-size:12px;padding-left:10px" width="15%">
+                            Montant en lettres
+                        </td>
+                        <td style="border:1px solid;border-bottom:0px;border-left:0px;font-size:16px" width="47%">
+                            <b><span t-esc="amount_to_text_fr(total,'DA')"/>
+                            </b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid;" >
+                        
+                        </td>
+                        <td style="border:1px solid;border-right:0px;font-size:12px;padding-left:10px" >
+                            Règlement par :
+                        </td>
+                        <td style="border:1px solid;border-left:0px;font-size:12px;padding-left:10px" >
+                            <br/>
+                            Chèque bancaire N<br/>
+                            Chèque postal N<br/>
+                            Caisse reçus N
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="margin-top:20px">
+                    <tr>
+                        <td style="font-size:10px; padding-left:10px">Certifiée exacte à certifer </td>
+                        <td style="font-size:10px;padding-left:3px;padding-right:3px">Le <span t-esc="time.strftime('%d/%m/%Y')"/></td>
+                        <td style="font-size:10px" class="text-right">Cachet et signature du cotisant </td>
+                    </tr>
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>

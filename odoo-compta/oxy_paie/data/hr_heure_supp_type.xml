@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding = "utf-8"?>
+
+<odoo>
+	<data>
+		<record id="hr_heures_hsupp_50" model="hr.heures.supp.type">
+			<field name="name">Heures Supplémentaires 50%</field>
+			<field name="code">R110</field>
+			<field name="majoration">50</field>
+			<field name="regle_id" ref="hr_rule_hsup_50"/>
+		</record>
+
+		<record id="hr_heures_hsupp_100" model="hr.heures.supp.type">
+			<field name="name">Heures Supplémentaires 100%</field>
+			<field name="code">R120</field>
+			<field name="majoration">100</field>
+			<field name="regle_id" ref="hr_rule_hsup_100"/>
+		</record>
+	</data>
+</odoo>

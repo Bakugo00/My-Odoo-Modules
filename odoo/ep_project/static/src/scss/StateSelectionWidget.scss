@@ -1,0 +1,11 @@
+
+.o_status {
+    &.o_status_yellow {
+        @extend .bg-warning;
+    }
+}
+.o_status {
+    &.o_status_dark {
+        @extend .bg-dark    ;
+    }
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+<!--        <record id="product_category_all" model="product.category">-->
+<!--            <field name="name">All</field>-->
+<!--        </record>-->
+<!--        <record id="product_category_1" model="product.category">-->
+<!--            <field name="parent_id" ref="product_category_all"/>-->
+<!--            <field name="name">Saleable</field>-->
+<!--        </record>-->
+<!--        <record id="cat_expense" model="product.category">-->
+<!--            <field name="parent_id" ref="product_category_all"/>-->
+<!--            <field name="name">Expenses</field>-->
+<!--        </record>-->
+
+<!--        <delete model="product.product.category" id="product.product_category_all"/>-->
+<!--        <delete model="product.product.category" id="product.product_category_1"/>-->
+<!--        <delete model="product.product.category" id="product.cat_expense"/>-->
+
+<!--        <delete model="product.category" search="[('id','=',ref('product.product_category_all'))]"/>-->
+
+
+    </data>
+</odoo>

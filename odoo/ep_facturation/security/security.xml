@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+<!--        <record id="group_account_user_sup" model="res.groups">-->
+<!--            <field name="name">Remettre en Brouilon les factures</field>-->
+<!--            <field name="category_id" ref="base.module_category_hidden"/>-->
+<!--&lt;!&ndash;            <field name="implied_ids" eval="[(4, ref('account.group_account_invoice')), (4, ref('account.group_account_readonly'))]"/>&ndash;&gt;-->
+<!--        </record>-->
+        <record id="group_account_user_sup" model="res.groups">
+            <field name="name">Remettre les factures en Brouillon</field>
+        </record>
+<!-- inactivate default facturation rules-->
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', 'in', ['sale','account','base']), ('name', 'in', ['account_invoice_rule_see_personal','account_invoice_rule_see_all','account_move_rule_group_invoice','account_move_see_all','module_category_accounting_accounting'])]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+        <record id="sale.account_invoice_rule_see_personal" model="ir.rule">
+            <field name="active" eval="False"/>
+        </record>
+        <record id="sale.account_invoice_rule_see_all" model="ir.rule">
+            <field name="active" eval="False"/>
+        </record>
+        <record id="account.account_move_rule_group_invoice" model="ir.rule">
+            <field name="active" eval="False"/>
+        </record>
+        <record id="account.account_move_see_all" model="ir.rule">
+            <field name="active" eval="False"/>
+        </record>
+<!--extra acces to admin department-->
+        <record model="ir.module.category" id="departement_adminisration_parent_category">
+            <field name="name">Département Administration</field>
+            <field name="description">Département Administration Application</field>
+        </record>
+        <record model="ir.module.category" id="departement_adminisration_category">
+            <field name="name">Département Administration</field>
+            <field name="description">Département Administration Application</field>
+            <field name="parent_id" ref="departement_adminisration_parent_category"/>
+        </record>
+<!--group access to fournisseur menu-->
+        <record id="group_fournisseur" model="res.groups">
+            <field name="name">Accès au menu fournisseur</field>
+            <field name="category_id" ref="departement_adminisration_category"/>
+        </record>
+<!-- Groups Facturation -->
+<!--Manager N+1 group-->
+        <record id="group_account_move_n" model="res.groups">
+            <field name="name">Manager N+1</field>
+            <field name="category_id" ref="base.module_category_accounting_accounting"/>
+            <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
+        </record>
+<!--Manager RH group for invoicing-->
+        <record id="group_account_move_manager_rh" model="res.groups">
+            <field name="name">Manager RH</field>
+            <field name="category_id" ref="base.module_category_accounting_accounting"/>
+            <field name="implied_ids" eval="[(4, ref('group_account_move_n'))]"/>
+        </record>
+
+<!--Manager IT/Direction Group-->
+        <record id="group_account_move_manager_it" model="res.groups">
+            <field name="name">Manager IT/Direction</field>
+            <field name="category_id" ref="base.module_category_accounting_accounting"/>
+            <field name="implied_ids" eval="[(4, ref('group_account_move_manager_rh'))]"/>
+        </record>
+        
+
+<!--Rules-->
+<!--Only department access to account-->
+        <record id="account_move_rule_manager_n" model="ir.rule">
+            <field name="name">account.move.rule.manager.n</field>
+            <field name="model_id" ref="model_account_move"/>
+            <field name="domain_force">['|',('partner_id.portfolio_ids.owner_id.employee_ids.parent_id','child_of',user.employee_ids.ids),('partner_id.portfolio_ids.user_ids.employee_ids.parent_id','child_of',user.employee_ids.ids)]</field>
+            <field name="groups" eval="[(4, ref('group_account_move_manager_rh')),(4,ref('group_account_move_n'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+<!--Only acces to users invoices -->
+        <record id="account_move_rule_collaborateur" model="ir.rule">
+            <field name="name">account.move.rule.collaborateur</field>
+            <field name="model_id" ref="model_account_move"/>
+            <field name="domain_force">['|',('partner_id.portfolio_ids.owner_id.id','in',[user.id]),('partner_id.portfolio_ids.user_ids.id','in',[user.id])]</field>
+            <field name="groups" eval="[(4, ref('account.group_account_invoice'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+<!--Access to all invoices rule-->
+        <record id="account_move_rule_manager_it" model="ir.rule">
+            <field name="name">account.move.rule.manager.it</field>
+            <field name="model_id" ref="model_account_move"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('group_account_move_manager_it'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+        <record id="account_move_rule_config" model="ir.rule">
+            <field name="name">account.move.rule.configuration</field>
+            <field name="model_id" ref="model_account_move"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('account.group_account_manager'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+    </data>
+</odoo>

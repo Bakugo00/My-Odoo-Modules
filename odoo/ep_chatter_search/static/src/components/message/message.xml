@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t t-name="ep_chatter_search.Message.inherit" t-inherit="mail.Message" owl="1" t-inherit-mode="extension">
+
+            <xpath expr="//div[@class='o_Message_background position-absolute start-0 top-0 w-100 h-100']" position="attributes">
+            <attribute name="t-att-class">{
+                'rounded-end-3': !messageView.isInChatWindowAndIsAlignedRight and (messageView.message.isDiscussionOrNotification or messageView.message.message_type === 'sms'),
+                'rounded-start-3': messageView.isInChatWindowAndIsAlignedRight and (messageView.message.isDiscussionOrNotification or messageView.message.message_type === 'sms'),
+                'rounded-bottom-3 border': messageView.message.isDiscussionOrNotification or messageView.message.message_type === 'sms',
+                'o-isAuthorNotCurrentUserOrGuest border-info bg-info-light': !messageView.message.isCurrentUserOrGuestAuthor and !messageView.message.isHighlighted and (messageView.message.isDiscussionOrNotification or messageView.message.message_type === 'sms'),
+                'border-success bg-success-light opacity-25': messageView.message.isCurrentUserOrGuestAuthor and !messageView.message.isHighlighted and (messageView.message.isDiscussionOrNotification or messageView.message.message_type === 'sms'),
+                'border-warning bg-warning-light opacity-50': messageView.message.isHighlighted and (messageView.message.isDiscussionOrNotification or messageView.message.message_type === 'sms'),
+                'bg-color-activity-grey' : !(messageView.message.isDiscussionOrNotification or messageView.message.message_type === 'sms'),
+            }</attribute>
+            
+        </xpath>
+
+    </t>
+
+
+</templates>

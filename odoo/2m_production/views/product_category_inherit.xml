@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<odoo>
+    <data>
+
+        <record id="product_category_form_inherit" model="ir.ui.view">
+            <field name="name">product.category.form.inherit</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="dimension"/>
+                    <field name="category_policy" widget="radio"/>
+                    <label for="use_limit"/>
+                        <div class="o_row" name="ordered_qty">
+                            <field name="use_limit" widget="boolean_toggle"/>
+                            <field name="limit" attrs="{'readonly': [('use_limit', '=', False)],'invisible':[('use_limit','=',False)]}" />
+                        </div>
+                    <field name="categ_id"/>
+                </xpath>
+
+            </field>
+        </record>
+        <record id="group_option_form" model="ir.ui.view">
+            <field name="name">group.option.form</field>
+            <field name="model">group.option</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Options">
+                                <group >
+                                    <div>
+                                        <field name="option_ids">
+                                            <tree string="Options">
+                                                <field name="name"/>
+                                                <field name="application"/>
+                                                <field name="value_ids" widget="many2many_tags"/>
+                                            </tree>
+                                        </field>
+                                    </div>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="group_option_action" model="ir.actions.act_window">
+            <field name="name">Groups D'options</field>
+            <field name="res_model">group.option</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+        <menuitem
+                id="menu_group_option"
+                action="group_option_action"
+                parent="sale.menu_sale_config"
+                groups="sales_team.group_sale_salesman"
+                sequence="7"
+        />
+        <record id="option_form" model="ir.ui.view">
+            <field name="name">option.form</field>
+            <field name="model">option</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                                <field name="name"/>
+                                <field name="application" />
+                                <field name="value_ids" widget="one2many" >
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="price"/>
+                                    </tree>
+                                </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

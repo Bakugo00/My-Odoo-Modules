@@ -1,0 +1,10 @@
+.bg-color-activity-grey{
+    background-color: #e0e0e066;
+    border-radius: 5px;
+}
+
+.o_Message_background.bg-color-activity-grey + .o_Message_content {
+    padding: 8px;
+
+}
+

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<odoo>
+    <data>
+
+        <record id="product_template_attribute_value_form_inherit" model="ir.ui.view">
+            <field name="name">product.template.attribute.value.form.inherit</field>
+            <field name="model">product.template.attribute.value</field>
+            <field name="inherit_id" ref="product.product_template_attribute_value_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='price_extra']" position="after">
+                    <field name="application" required="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='price_extra']" position="attributes">
+                    <attribute name="string">Prix</attribute>
+                </xpath>
+
+                  <xpath expr="//field[@name='exclude_for']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="product_template_attribute_value_tree_inherit" model="ir.ui.view">
+            <field name="name">product.template.attribute.value.tree.inherit</field>
+            <field name="model">product.template.attribute.value</field>
+            <field name="inherit_id" ref="product.product_template_attribute_value_view_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='price_extra']" position="attributes">
+                    <attribute name="string">Prix</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='price_extra']" position="after">
+                    <field name="application" />
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_hr_employee_grade_form_inherit_id" model="ir.ui.view">
+            <field name="name">view_hr_employee_grade_form_inherit_name</field>
+            <field name="model">hr.payroll.structure</field>
+            <field name="inherit_id" ref="om_hr_payroll.view_hr_employee_grade_form"/>
+            <field name="arch" type="xml">
+                <field name='parent_id' position="after">
+                    <field name='retenue_mutuelle'/>
+                    <field name='conge_du' required="1"/>
+                    <field name='conge_au' required="1"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

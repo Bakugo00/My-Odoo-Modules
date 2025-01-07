@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="ir_cron_execute_send_email" model="ir.cron">
+            <field name="name">Contrat : Envoyer email au client lors de l'expiration du contrat</field>
+            <field name="model_id" ref="model_customer_contract"/>
+            <field name="state">code</field>
+            <field name="code">model.execute_send_email_cron</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+<!--            <field eval="False" name="doall" />-->
+<!--            <field name="priority">1000</field>-->
+        </record>
+
+        <record id="ir_cron_execute_display_notification" model="ir.cron">
+            <field name="name">Contrat : Envoyer notification au vendeur lors de l'expiration du contrat</field>
+            <field name="model_id" ref="model_customer_contract"/>
+            <field name="state">code</field>
+            <field name="code">model.execute_display_notification_cron</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+<!--            <field eval="False" name="doall" />-->
+<!--            <field name="priority">1000</field>-->
+        </record>
+
+    </data>
+</odoo>

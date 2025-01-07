@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding = "utf-8"?>
+
+<odoo>
+	<data>
+
+		<record model="hr.rappel.type" id="rappel_salaire_base_positif">
+			<field name="code">R031</field>
+			<field name="name">(R+)Salaire de base</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_sal_base_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_salaire_base_negatif">
+			<field name="code">R032</field>
+			<field name="name">(R-)Salaire de base</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_sal_base_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_jour_absences_positif">
+			<field name="code">R035</field>
+			<field name="name">(R+)JOURS ABSENCES</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_jour_absences_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_jour_absences_negatif">
+			<field name="code">R036</field>
+			<field name="name">(R-)JOURS ABSENCES</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_jour_absences_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_jour_reprise_conge_positif">
+			<field name="code">R062</field>
+			<field name="name">(R+)JRS. REPRISE/ CONGE</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_jour_reprise_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_jour_reprise_conge_negatif">
+			<field name="code">R063</field>
+			<field name="name">(R-)JRS. REPRISE/ CONGE</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_jour_reprise_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_abs_retard_positif">
+			<field name="code">R067</field>
+			<field name="name">(R+)ABS.RETARD</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_abs_retard_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_abs_retard_negatif">
+			<field name="code">R068</field>
+			<field name="name">(R-)ABS.RETARD</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_abs_retard_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_abs_autorisee_positif">
+			<field name="code">R072</field>
+			<field name="name">(R+)ABS.AUTORISEE</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_abs_autorisee_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_abs_autorisee_negatif">
+			<field name="code">R073</field>
+			<field name="name">(R-)ABS.AUTORISEE</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_abs_autorisee_negatif"/>
+		</record>
+
+
+		<record model="hr.rappel.type" id="rappel_abs_irreguliere_positif">
+			<field name="code">R076</field>
+			<field name="name">(R+)ABS.IRREGULIERE</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_abs_irregulier_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_abs_irreguliere_negatif">
+			<field name="code">R077</field>
+			<field name="name">(R-)ABS.IRREGULIERE</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_abs_irregulier_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_abs_conge_maladie_positif">
+			<field name="code">R080</field>
+			<field name="name">(R+)ABS.CONGE MALADIE</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_abs_maladie_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_abs_conge_maladie_negatif">
+			<field name="code">R081</field>
+			<field name="name">(R-)ABS.CONGE MALADIE</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_abs_maladie_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_abs_accident_positif">
+			<field name="code">R084</field>
+			<field name="name">(R+)ABS.ACCIDENT TRAVAIL</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_abs_accident_positif"/>
+		</record>
+
+
+		<record model="hr.rappel.type" id="rappel_abs_accident_negatif">
+			<field name="code">R085</field>
+			<field name="name">(R-)ABS.ACCIDENT TRAVAIL</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_abs_accident_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_abs_maternite_positif">
+			<field name="code">R088</field>
+			<field name="name">(R+) ABS.CONGE MATERNITE</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_abs_maternite_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_abs_maternite_negatif">
+			<field name="code">R089</field>
+			<field name="name">(R-) ABS.CONGE MATERNITE</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_abs_maternite_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_abs_detente_positif">
+			<field name="code">R092</field>
+			<field name="name">(R+) ABS.CONGE DETENTE</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_abs_detente_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_abs_detente_negatif">
+			<field name="code">R093</field>
+			<field name="name">(R-) ABS.CONGE DETENTE</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_abs_detente_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_abs_sanction_positif">
+			<field name="code">R096</field>
+			<field name="name">(R+) HRS ABS SANCTION</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_abs_sanction_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_abs_sanction_negatif">
+			<field name="code">R097</field>
+			<field name="name">(R-) HRS ABS SANCTION</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_abs_sanction_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_abs_suspension_positif">
+			<field name="code">R105</field>
+			<field name="name">(R+) HRS ABS. SUSPENSION</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_abs_suspension_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_abs_suspension_negatif">
+			<field name="code">R106</field>
+			<field name="name">(R-) HRS ABS. SUSPENSION</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_abs_suspension_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_hr_sup_50_positif">
+			<field name="code">R113</field>
+			<field name="name">(R+) HEURES SUPP. A  50%</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_hr_sup_50_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_hr_sup_50_negatif">
+			<field name="code">R114</field>
+			<field name="name">(R-) HEURES SUPP. A  50%</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_hr_sup_50_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_hr_sup_100_positif">
+			<field name="code">R123</field>
+			<field name="name">(R+) HEURES SUPP. A  100%</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_hr_sup_100_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_hr_sup_100_negatif">
+			<field name="code">R124</field>
+			<field name="name">(R-) HEURES SUPP. A  100%</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_hr_sup_100_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_ia_positif">
+			<field name="code">R262</field>
+			<field name="name">(R+) I.A</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_ia_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_ia_negatif">
+			<field name="code">R263</field>
+			<field name="name">(R-) I.A</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_ia_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_poste_positif">
+			<field name="code">R276</field>
+			<field name="name">(R+) PRIMES DE POSTE</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_poste_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_poste_negatif">
+			<field name="code">R277</field>
+			<field name="name">(R-) PRIMES DE POSTE</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_poste_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_nuissance_positif">
+			<field name="code">R282</field>
+			<field name="name">(R+) NUISANCE</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_nuissance_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_nuissance_negatif">
+			<field name="code">R283</field>
+			<field name="name">(R-) NUISANCE</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_nuissance_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_responsabilite_positif">
+			<field name="code">R292</field>
+			<field name="name">(R+) RESPONSABILITE</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_responsabilite_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_responsabilite_negatif">
+			<field name="code">R293</field>
+			<field name="name">(R-) RESPONSABILITE</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_responsabilite_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_prc_positif">
+			<field name="code">R312</field>
+			<field name="name">(R+) P.R.C.</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_prc_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_prc_negatif">
+			<field name="code">R313</field>
+			<field name="name">(R-) P.R.C.</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_prc_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_encouragement_positif">
+			<field name="code">R370</field>
+			<field name="name">(R+) Prime Encouragement</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_encouragement_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_encouragement_negatif">
+			<field name="code">R371</field>
+			<field name="name">(R-) Prime Encouragement</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_encouragement_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_sal_base_compl">
+			<field name="code">R006</field>
+			<field name="name">(R+)S.base complémentaire</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_sal_base_compl"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_sal_base_compl_negatif">
+			<field name="code">R007</field>
+			<field name="name">(R-)S.base complémentaire</field>
+			<field name="cotisable" eval="True"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_sal_base_compl_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_panier_positif">
+			<field name="code">R523</field>
+			<field name="name">(R+) PANIER</field>
+			<field name="cotisable" eval="False"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_panier_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_panier_negatif">
+			<field name="code">R524</field>
+			<field name="name">(R-) PANIER</field>
+			<field name="cotisable" eval="False"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_panier_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_transport_positif">
+			<field name="code">R533</field>
+			<field name="name">(R+) TRANSPORT</field>
+			<field name="cotisable" eval="False"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_transport_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_transport_negatif">
+			<field name="code">R534</field>
+			<field name="name">(R-) TRANSPORT</field>
+			<field name="cotisable" eval="False"/>
+			<field name="imposable" eval="True"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_transport_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_sec_soc_positif">
+			<field name="code">R511</field>
+			<field name="name">(R+) RETENUE SECU. SLE</field>
+			<field name="cotisable" eval="False"/>
+			<field name="imposable" eval="False"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_sec_soc_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_sec_soc_negatif">
+			<field name="code">R512</field>
+			<field name="name">(R-) RETENUE SECU. SLE</field>
+			<field name="cotisable" eval="False"/>
+			<field name="imposable" eval="False"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_sec_soc_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_retenus_irg_positif">
+			<field name="code">R661</field>
+			<field name="name">(R+) RETENUE I.R.G.</field>
+			<field name="cotisable" eval="False"/>
+			<field name="imposable" eval="False"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_retenus_irg_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_retenus_irg_negatif">
+			<field name="code">R662</field>
+			<field name="name">(R-) RETENUE I.R.G.</field>
+			<field name="cotisable" eval="False"/>
+			<field name="imposable" eval="False"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_retenus_irg_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_rembourssement_positif">
+			<field name="code">R725</field>
+			<field name="name">(R+) REMBOURSEMENT PRET</field>
+			<field name="cotisable" eval="False"/>
+			<field name="imposable" eval="False"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_rembourssement_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_rembourssement_negatif">
+			<field name="code">R726</field>
+			<field name="name">(R-) REMBOURSEMENT PRET</field>
+			<field name="cotisable" eval="False"/>
+			<field name="imposable" eval="False"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_rembourssement_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_frais_mission_positif">
+			<field name="code">R731</field>
+			<field name="name">(R+) FRAIS DE MISSION</field>
+			<field name="cotisable" eval="False"/>
+			<field name="imposable" eval="False"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_frais_mission_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_frais_mission_negatif">
+			<field name="code">R732</field>
+			<field name="name">(R-) FRAIS DE MISSION</field>
+			<field name="cotisable" eval="False"/>
+			<field name="imposable" eval="False"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_frais_mission_negatif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_scolarite_positif">
+			<field name="code">R743</field>
+			<field name="name">(R+) Prime de Scolarite</field>
+			<field name="cotisable" eval="False"/>
+			<field name="imposable" eval="False"/>
+			<field name="type">gain</field>
+			<field name="regle_id" ref="hr_rule_scolarite_positif"/>
+		</record>
+
+		<record model="hr.rappel.type" id="rappel_scolarite_negatif">
+			<field name="code">R744</field>
+			<field name="name">(R-) Prime de Scolarite</field>
+			<field name="cotisable" eval="False"/>
+			<field name="imposable" eval="False"/>
+			<field name="type">retenu</field>
+			<field name="regle_id" ref="hr_rule_scolarite_negatif"/>
+		</record>
+
+	</data>
+</odoo>

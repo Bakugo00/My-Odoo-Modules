@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_payroll_centralizer_wizard" model="ir.ui.view">
+			<field name="name">view.payroll.centralizer.wizard</field>
+			<field name="model">payroll.centralizer</field>
+			<field name="arch" type="xml">
+				<form string="Centralisateur">
+					<group>
+						<field name="month" required="1" class="oe_inline"/>
+						
+					</group>
+					<footer>
+						<button name="print_report" string="Imprimer" type="object" class="oe_highlight"/>
+						ou
+						<button string="Annuler" class="oe_link" special="cancel"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="centralisateur_action" model="ir.actions.act_window">
+            <field name="name">Centralisateur</field>
+            <field name="res_model">payroll.centralizer</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+		<menuitem id="centralisateur_menu" parent="menu_reports" groups="hr.group_hr_user" action="centralisateur_action"/>
+	</data>
+</odoo>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<act_window 
+			name="Affecter par département"
+			res_model="assignment.by.department"
+			binding_model="hr.primes"
+			binding_views="form"
+			view_mode="form"
+			target="new"
+			id="action_assign_prime_departement_wizard"/>
+
+		 <record id="primes_view_form" model="ir.ui.view">
+			<field name="name">Affectation primes</field>
+			<field name="model">hr.primes</field>
+			<field name="arch" type="xml">
+				<form string="Affectation primes">
+					<header>
+						<button name="valide" type="object" string="Valider" class="oe_highlight" states="brouillon" />
+						<field name="state" widget="statusbar" statusbar_visible="brouillon, valide"/>
+					</header>
+					<sheet>		
+						<group>
+							<group>
+								<field name="primes_type_id" required="1" class="oe_inline" attrs="{'readonly' : [('state','!=','brouillon')]}"/>
+							</group>
+							<group>
+							</group>
+						</group>
+						<group>
+							<group>
+								<field name="affectation" required="1" class="oe_inline" attrs="{'readonly' : [('state','!=','brouillon')]}"/>
+							</group>
+							<group attrs="{'invisible':[('affectation', '!=', 'periodique')]}">
+								<div>
+									<b>Du </b>
+									<field name="date_from" class="oe_inline" attrs="{'required':[('affectation', '=', 'periodique')], 'readonly' : [('state','!=','brouillon')]}"/>
+									<b>Au </b>
+									<field name="date_to" class="oe_inline" attrs="{'required':[('affectation', '=', 'periodique')], 'readonly' : [('state','!=','brouillon')]}"/>
+								</div>
+							</group>
+							<group>
+								<field name="month" required="1" class="oe_inline" attrs="{'invisible':[('affectation', '!=', 'annuel')], 'readonly' : [('state','!=','brouillon')]}"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Employés">
+								<field name="hr_primes_line_ids" attrs="{'readonly' : [('state','!=','brouillon')]}">
+									<tree string="Employés"  editable="bottom">
+										<field name="employee_id" domain="[('non_actif', '=', False)]" required="1"/>
+										<field name="taux_montant" required="1"/>
+										<field name="state" invisible="1"/>
+										<field name="currency_id" invisible="1"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		 
+		<record id="primes_view_tree" model="ir.ui.view">
+			<field name="name">Affectation primes</field>
+			<field name="model">hr.primes</field>
+			<field name="arch" type="xml">
+				<tree string='Affectation Prime'>
+					<field name="primes_type_id"/>
+					<field name="affectation"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_affectation_primes" model="ir.actions.act_window">
+			<field name="name">Affectation primes</field>
+			<field name="res_model">hr.primes</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="context">{}</field>
+		</record>
+
+		<menuitem 
+			name="Affectation des primes"
+			id="menu_affectation_primes"
+			parent="om_hr_payroll.menu_hr_payroll_root"
+			groups="hr.group_hr_user"
+			action="action_affectation_primes"/>
+	</data>
+</odoo>

@@ -1,0 +1,17 @@
+.bg-color-activity-red{
+    
+    background: #ff000026;
+    padding: 5px;
+    border-radius: 5px;/* Lighter shade of orange */
+
+}
+.bg-color-activity-green{
+    background: #46bd2c1a;
+    padding: 5px;
+    border-radius: 5px;
+}
+.bg-color-activity-orange{
+    background: #deae001a;
+    padding: 5px;
+    border-radius: 5px;
+}

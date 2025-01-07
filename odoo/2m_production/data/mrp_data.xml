@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+
+        <!--  mrp workcenter data -->
+
+        <record id="wc_concepteur" model="mrp.workcenter">
+            <field name="name">Concepteur</field>
+            <field name="code">001</field>
+        </record>
+
+        <record id="wc_infographe" model="mrp.workcenter">
+            <field name="name">Infographe</field>
+            <field name="code">002</field>
+        </record>
+
+        <record id="wc_charge_impression" model="mrp.workcenter">
+            <field name="name">Chargé Impression</field>
+            <field name="code">003</field>
+        </record>
+
+        <record id="wc_charge_finition" model="mrp.workcenter">
+            <field name="name">Chargé Finition</field>
+            <field name="code">004</field>
+        </record>
+
+        <!--  mrp routing workcenter data -->
+
+        <record id="conception" model="mrp.routing.workcenter">
+            <field name="name">Conception</field>
+            <field name="workcenter_id" ref="wc_concepteur"/>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="prepresse" model="mrp.routing.workcenter">
+            <field name="name">Prépresse</field>
+            <field name="workcenter_id" ref="wc_concepteur"/>
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="impression" model="mrp.routing.workcenter">
+            <field name="name">Impression</field>
+            <field name="workcenter_id" ref="wc_charge_impression"/>
+            <field name="sequence">3</field>
+        </record>
+
+        <record id="finition" model="mrp.routing.workcenter">
+            <field name="name">Finition</field>
+            <field name="workcenter_id" ref="wc_charge_finition"/>
+            <field name="sequence">4</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="crm_lead_form_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.form.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//form/sheet/group/group[@name='lead_partner']/field[@name='partner_id']" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_create_edit': True,'no_quick_create': True, 'no_open': True}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//form/sheet/group/group[@name='opportunity_partner']/field[@name='partner_id']" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_create_edit': True,'no_quick_create': True,
+                        'no_open': True}
+                    </attribute>
+                    <attribute name="context">
+                        {'show_portoflio_contacts':True}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_name']" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_create_edit': True,'no_quick_create': True,
+                        'no_open': True}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_create_edit': True,'no_quick_create': True,
+                        'no_open': True}
+                    </attribute>
+                </xpath>
+
+
+                <xpath expr="//field[@name='team_id']" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_create_edit': True,'no_quick_create': True,
+                        'no_open': True}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='title']" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_create_edit': True,'no_quick_create': True,
+                        'no_open': True}
+                    </attribute>
+                </xpath>
+
+            </field>
+        </record>
+        <record id="crm_lead_kanban_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.kanban.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban//field[@name='partner_id']" position="attributes">
+                    <attribute name="context">{'show_portoflio_contacts':True}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    <record id="ep_crm_quick_create_opportunity_form_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.form.quick_create_inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.quick_create_opportunity_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/group/field[@name='partner_id']" position="attributes">
+                <attribute name="context">{'show_portoflio_contacts': True,
+                            'res_partner_search_mode': type == 'opportunity' and 'customer' or False,
+                            'default_name': contact_name or partner_name,
+                            'default_is_company': type == 'opportunity' and contact_name == False,
+                            'default_company_name': type == 'opportunity' and partner_name,
+                            'default_type': 'contact',
+                            'default_phone': phone,
+                            'default_email': email_from,
+                            'default_user_id': user_id,
+                            'default_team_id': team_id,
+                            'show_vat': True,}</attribute>
+            </xpath>
+        </field>
+    </record>
+    </data>
+</odoo>

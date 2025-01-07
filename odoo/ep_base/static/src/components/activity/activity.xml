@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+<t t-name="ep_base.customize_activity_buttons" t-inherit="mail.Activity" t-inherit-mode="extension" owl="1"> 
+<!--   <xpath expr="//button[contains(@class, 'o_Activity_markDoneButton')]" position="attributes">
+        <attribute name="t-attf-class">d-none</attribute>
+    </xpath>
+    <xpath expr="//button[contains(@class, 'o_Activity_cancelButton')]" position="attributes">
+        <attribute name="t-attf-class">d-none</attribute>
+    </xpath>
+--> 
+</t>
+</templates>

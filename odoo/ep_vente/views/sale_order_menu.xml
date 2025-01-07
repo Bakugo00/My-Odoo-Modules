@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="0">
+        <record id="sale.sale_menu_root" model="ir.ui.menu">
+            <field name="groups_id" eval="[(4,ref('sales_team.group_sale_salesman'))]"/>
+        </record>
+        <record id="sale.product_menu_catalog" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6,0,[ref('sales_team.group_sale_salesman')])]"/>
+        </record>
+
+        <record id="sale.menu_sale_report" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [ref('ep_vente.group_sale_order_n')])]"/>
+        </record>
+
+        <record id="sale.menu_sale_config" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [ref('ep_vente.group_sale_order_n')])]"/>
+        </record>
+
+    </data>
+</odoo>
